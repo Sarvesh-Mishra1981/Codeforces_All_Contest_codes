@@ -26,7 +26,6 @@ using namespace std;
 #define sz(x) ((ll)(x).size())
 #define fi(i,s,e) for(ll i=s;i<e;i++)
 #define fd(i,s,e) for(ll i=s;i>e;i--)
-#define fa(x,v)  for(auto& x:v)
 #define tc  ll t;cin>>t;while(t--)
 #define in(v) for(auto &x:v) cin>>x
 #define out(v) for(auto &x:v) cout<<x<<" "
@@ -44,32 +43,25 @@ const ll MOD = 1e9+7;
 const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
-// -----------------------------------Lets Do IT---------------------------------------------------------------
 int main() {
     fast;
     tc {
-        ll n; cin >> n;
-        set<ll> s;
-        fi(i,0,n) s.insert(i+1);
+        ll a, b; cin >> a >> b;
+        ll c, d; cin >> c >> d;
 
-        vi v(n); 
-        fa(x,v) { cin >> x; s.erase(x); }
+        ll uL = min(a, c), uR = max(b, d);
+        ll iL = max(a, c), iR = min(b, d);
 
-        fa(x,v) {
-            if(!x && !s.empty()) {
-                auto it = s.end(); --it;
-                x = *it;
-                s.erase(it);
-            }
+        ll ans = 0;
+        if (b < c || d < a) {
+            ans = 1;
+        } else {
+            ll sz = iR - iL + 1; // size of intersection
+            ans = sz - 1;
+            if (iL > uL) ans++;
+            if (iR < uR) ans++;
         }
 
-        ll l=n+1, r=n;
-        fi(i,0,n){
-            if(v[i]!=i+1){
-                r=i;
-                l=min(l,i);
-            }
-        }
-        cout << (r-l+1) << '\n';
+        cout << ans << '\n';
     }
 }

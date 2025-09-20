@@ -26,7 +26,6 @@ using namespace std;
 #define sz(x) ((ll)(x).size())
 #define fi(i,s,e) for(ll i=s;i<e;i++)
 #define fd(i,s,e) for(ll i=s;i>e;i--)
-#define fa(x,v)  for(auto& x:v)
 #define tc  ll t;cin>>t;while(t--)
 #define in(v) for(auto &x:v) cin>>x
 #define out(v) for(auto &x:v) cout<<x<<" "
@@ -45,31 +44,31 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
+ll solve(string& s,ll n){
+    if(n==1) return 1;
+    ll c0=0;
+    ll c1=0;
+    fi(i,0,n){
+        if(s[i]=='0') c0++;
+        else c1++;
+    }
+    ll len=0;
+    fi(i,0,n){
+        if(s[i]=='1' && c0>0) {c0--; len++;}
+        else if(s[i]=='0' && c1>0){ c1--;  len++;}
+        else {
+            break;
+        }
+    }
+    return n-len;
+}
+
 int main() {
     fast;
     tc {
-        ll n; cin >> n;
-        set<ll> s;
-        fi(i,0,n) s.insert(i+1);
-
-        vi v(n); 
-        fa(x,v) { cin >> x; s.erase(x); }
-
-        fa(x,v) {
-            if(!x && !s.empty()) {
-                auto it = s.end(); --it;
-                x = *it;
-                s.erase(it);
-            }
-        }
-
-        ll l=n+1, r=n;
-        fi(i,0,n){
-            if(v[i]!=i+1){
-                r=i;
-                l=min(l,i);
-            }
-        }
-        cout << (r-l+1) << '\n';
+        string s;
+        cin>>s;
+        ll n=s.length();
+        cout<<solve(s,n)<<endl;
     }
 }

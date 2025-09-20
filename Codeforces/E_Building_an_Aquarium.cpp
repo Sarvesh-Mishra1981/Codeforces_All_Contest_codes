@@ -26,7 +26,6 @@ using namespace std;
 #define sz(x) ((ll)(x).size())
 #define fi(i,s,e) for(ll i=s;i<e;i++)
 #define fd(i,s,e) for(ll i=s;i>e;i--)
-#define fa(x,v)  for(auto& x:v)
 #define tc  ll t;cin>>t;while(t--)
 #define in(v) for(auto &x:v) cin>>x
 #define out(v) for(auto &x:v) cout<<x<<" "
@@ -45,31 +44,32 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
+ll solve(vi &a, ll k, ll n) {
+    ll maxi = *max_element(a.begin(), a.end());
+    ll sum = accumulate(a.begin(), a.end(), 0LL);
+    ll l = 0, r = maxi + k; 
+    while(l < r) {
+        ll mid = (l + r + 1)/2;
+        ll needed = 0;
+        for(ll x : a) {
+            if(mid > x) needed += (mid - x);
+        }
+        if(needed <= k) l = mid;     
+        else r = mid - 1;           
+    }
+    return l;
+    
+}
+
 int main() {
     fast;
     tc {
-        ll n; cin >> n;
-        set<ll> s;
-        fi(i,0,n) s.insert(i+1);
+        ll n, k;
+        cin >> n >> k;
+        vi v(n);
+        in(v);
 
-        vi v(n); 
-        fa(x,v) { cin >> x; s.erase(x); }
-
-        fa(x,v) {
-            if(!x && !s.empty()) {
-                auto it = s.end(); --it;
-                x = *it;
-                s.erase(it);
-            }
-        }
-
-        ll l=n+1, r=n;
-        fi(i,0,n){
-            if(v[i]!=i+1){
-                r=i;
-                l=min(l,i);
-            }
-        }
-        cout << (r-l+1) << '\n';
+        ll ans = solve(v, k, n);
+        cout << ans << "\n";
     }
 }
