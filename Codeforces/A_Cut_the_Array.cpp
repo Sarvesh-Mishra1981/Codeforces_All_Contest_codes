@@ -1,54 +1,57 @@
 #include <iostream>
 #include <vector>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <deque>
+#include <string>
+#include <algorithm>
+#include <numeric>
+#include <cmath>
+#include <climits>
+#include <iomanip>
+#include <utility>
 using namespace std;
+#define ll  long long
+#define ld  long double
+#define vi  vector<ll>
+#define pi  pair<ll,ll>
+#define vpi vector<pi>
+#define pb  push_back
+#define ff  first
+#define ss  second
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define sz(x) ((ll)(x).size())
+#define fi(i,s,e) for(ll i=s;i<e;i++)
+#define fd(i,s,e) for(ll i=s;i>e;i--)
+#define tc  ll t;cin>>t;while(t--)
+#define in(v) for(auto &x:v) cin>>x
+#define out(v) for(auto &x:v) cout<<x<<" "
+#define inp(v) for(auto &x:v) cin>>x.ff>>x.ss
+#define Y cout<<"YES\n"
+#define N cout<<"NO\n"
+#define nl cout<<'\n'
+#define mn3(a,b,c) min(a,min(b,c))
+#define mx3(a,b,c) max(a,max(b,c))
+#define hi(v) *max_element(all(v))
+#define lo(v) *min_element(all(v))
+#define dbg(x) cerr<<#x<<"="<<x<<'\n'
+#define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+const ll MOD = 1e9+7;
+const ll INF = LLONG_MAX;
+const int Na = 2e5+5;
 
-vector<int> prefix_sum(vector<int>& a) {
-    vector<int> b(a.size());
-    b[0] = a[0];
-    for (int i = 1; i < a.size(); i++) {
-        b[i] = b[i - 1] + a[i];
-    }
-    return b;
-}
-
-int return_sum(vector<int>& pref, int l, int r) {
-    if (l == 0) return pref[r];
-    return pref[r] - pref[l - 1];
-}
-
-vector<int> solve(vector<int>& a, int n) {
-    vector<int> res;  
-    vector<int> pref = prefix_sum(a);
-
-    for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n - 1; j++) {
-            int x = (return_sum(pref, 0, i))%3;
-            int y = (return_sum(pref, i + 1, j))%3;
-            int z = (return_sum(pref, j + 1, n - 1))%3;
-
-            if ((x == y && y == z) || (x!=y && y!=z && z!=x)) {
-                res.push_back(i + 1);
-                res.push_back(j + 1);
-                return res; 
-            }
-        }
-    }
-    return {0, 0};
-}
-
+// -----------------------------------Lets Do IT---------------------------------------------------------------
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
-        vector<int> a(n);
-        for (int i = 0; i < n; i++) {
-            int y;
-            cin >> y;
-            a[i] = y;  
-        }
-        vector<int> b = solve(a, n);
-        cout << b[0] << " " << b[1] << endl;
+    fast;
+    tc {
+        ll n; cin>>n;
+        vi v(n); in(v);
+        ll sum=0;
+        fi(i,0,n) sum+=v[i];
+        if(sum%3==0) cout<<"1 2"<<endl;
+        else cout<<"0 0"<<endl;
     }
 }
