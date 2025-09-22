@@ -1,6 +1,9 @@
 {
     "files.associations": {
-        "ios": "cpp"
+        "ios": "cpp",
+        "climits": "cpp",
+        "string": "cpp",
+        "iostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

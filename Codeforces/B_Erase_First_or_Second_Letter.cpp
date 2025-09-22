@@ -7,6 +7,7 @@
 #include <deque>
 #include <string>
 #include <algorithm>
+#include <unordered_set>
 #include <numeric>
 #include <cmath>
 #include <climits>
@@ -44,30 +45,27 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(string& s,ll n){
-    ll c0=0;
-    ll c1=0;
-    ll res=0;
+int solve(string& s,ll n){
+    unordered_set<char> m;
+    vi v;
+    ll count=0;
+    ll sum=0;
     fi(i,0,n){
-        if(s[i]=='1') c1++;
-        else c0++;
-    }
-    fi(i,0,n){
-         if(s[i]=='1' && c0>0) {c0--; res++;}
-        else if(s[i]=='0' && c1>0) {c1--; res++;}
-        else {
-            break;
+        if(m.find(s[i])==m.end()){
+            count++;
+            m.insert(s[i]);
         }
+        sum+=count;
     }
-    return n-res;
+    return sum;
 }
 
 int main() {
     fast;
     tc {
+        ll n; cin>>n;
         string s;
         cin>>s;
-        ll n=s.length();
         cout<<solve(s,n)<<endl;
     }
 }
