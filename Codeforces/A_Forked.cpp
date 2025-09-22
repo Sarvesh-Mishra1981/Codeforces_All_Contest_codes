@@ -44,30 +44,23 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(string& s,ll n){
-    ll c0=0;
-    ll c1=0;
+ll solve(ll a,ll b,ll xq,ll yq,ll xk,ll yk){
+    ll disx=abs(xk-xq);
+    ll disy=abs(yq-yk);
     ll res=0;
-    fi(i,0,n){
-        if(s[i]=='1') c1++;
-        else c0++;
-    }
-    fi(i,0,n){
-         if(s[i]=='1' && c0>0) {c0--; res++;}
-        else if(s[i]=='0' && c1>0) {c1--; res++;}
-        else {
-            break;
-        }
-    }
-    return n-res;
+    if(disy==(2*b-1)) res+=1;
+    if(disx==(2*(a-1))) res+=1;
+    if((a+b)==disx) res++;
+    if(disy==(a+b)) res++;
+    return res;
 }
 
 int main() {
     fast;
     tc {
-        string s;
-        cin>>s;
-        ll n=s.length();
-        cout<<solve(s,n)<<endl;
+        ll a,b,xq,yq,xk,yk; cin>>a>>b;
+        cin>>xq>>yq;
+        cin>>xk>>yk;
+        cout<<solve(a,b,xq,yq,xk,yk)<<endl;
     }
 }

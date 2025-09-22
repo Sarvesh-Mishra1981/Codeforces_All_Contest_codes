@@ -12,6 +12,7 @@
 #include <climits>
 #include <iomanip>
 #include <utility>
+#include<unordered_map>
 using namespace std;
 #define ll  long long
 #define ld  long double
@@ -44,30 +45,32 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(string& s,ll n){
-    ll c0=0;
-    ll c1=0;
-    ll res=0;
-    fi(i,0,n){
-        if(s[i]=='1') c1++;
-        else c0++;
+ll solve(vi& v){
+    unordered_map<ll,ll> m;
+    for(auto& x : v){
+        m[x]++;
     }
-    fi(i,0,n){
-         if(s[i]=='1' && c0>0) {c0--; res++;}
-        else if(s[i]=='0' && c1>0) {c1--; res++;}
-        else {
-            break;
-        }
+
+    vi res;
+    for(auto& p : m){
+        res.push_back(p.second);
     }
-    return n-res;
+
+    sort(res.begin(), res.end(), greater<ll>());
+
+    ll ans = 0;
+    fi(i,0,res.size()){
+        ans = max(ans, res[i] * (i+1));
+    }
+
+    return ans;
 }
 
 int main() {
     fast;
     tc {
-        string s;
-        cin>>s;
-        ll n=s.length();
-        cout<<solve(s,n)<<endl;
+        ll n; cin >> n;
+        vi v(n); in(v);
+        cout << solve(v) << "\n";
     }
 }

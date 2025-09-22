@@ -44,30 +44,19 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(string& s,ll n){
-    ll c0=0;
-    ll c1=0;
-    ll res=0;
-    fi(i,0,n){
-        if(s[i]=='1') c1++;
-        else c0++;
+bool IsSorted(vector<ll>& v){
+    fi(i,0,v.size()-1){
+        if(v[i+1]<v[i]) return false;
     }
-    fi(i,0,n){
-         if(s[i]=='1' && c0>0) {c0--; res++;}
-        else if(s[i]=='0' && c1>0) {c1--; res++;}
-        else {
-            break;
-        }
-    }
-    return n-res;
+    return  true;
 }
 
 int main() {
     fast;
     tc {
-        string s;
-        cin>>s;
-        ll n=s.length();
-        cout<<solve(s,n)<<endl;
+        ll n,k; cin>>n>>k;
+        vi v(n); in(v);
+        if(k==1 && n>1 && IsSorted(v)==false) N;
+        else Y;
     }
 }
