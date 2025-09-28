@@ -12,9 +12,6 @@
 #include <climits>
 #include <iomanip>
 #include <utility>
-#include<unordered_set>
-#include<unistd.h>
-#include<unordered_map>
 using namespace std;
 #define ll  long long
 #define ld  long double
@@ -54,5 +51,7 @@ int main() {
     tc {
         ll n; cin>>n;
         vi v(n); in(v);
+        sort(v.begin(),v.end());
+        cout<<abs(v[0]-v[n-1])<<endl;
     }
 }

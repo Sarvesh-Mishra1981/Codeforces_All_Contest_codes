@@ -12,9 +12,6 @@
 #include <climits>
 #include <iomanip>
 #include <utility>
-#include<unordered_set>
-#include<unistd.h>
-#include<unordered_map>
 using namespace std;
 #define ll  long long
 #define ld  long double
@@ -54,5 +51,11 @@ int main() {
     tc {
         ll n; cin>>n;
         vi v(n); in(v);
+        sort(v.begin(),v.end());
+        ll res=-1000;
+        for(int i=0;i<n-1;i=i+2){
+            res=max(res,abs(v[i+1]-v[i]));
+        }
+        cout<<res<<endl;
     }
 }

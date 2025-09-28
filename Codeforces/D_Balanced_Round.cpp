@@ -12,9 +12,6 @@
 #include <climits>
 #include <iomanip>
 #include <utility>
-#include<unordered_set>
-#include<unistd.h>
-#include<unordered_map>
 using namespace std;
 #define ll  long long
 #define ld  long double
@@ -47,12 +44,32 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
+void solve(vi& a,ll n,ll k){
+    ll res = 1;  
+    ll ans = 1;
+    if(n==1) { cout<<0<<endl; return; }
 
+    sort(a.begin(), a.end());
+
+    fi(i,0,n-1){
+        if((a[i+1]-a[i])<=k) {
+            ans++;
+        }
+        else {
+            res = max(res, ans);
+            ans = 1;
+        }
+    }
+    res = max(res, ans);  
+
+    cout << n - res << endl;
+}
 
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
+        ll n,k; cin>>n>>k;
         vi v(n); in(v);
+        solve(v,n,k);
     }
 }
