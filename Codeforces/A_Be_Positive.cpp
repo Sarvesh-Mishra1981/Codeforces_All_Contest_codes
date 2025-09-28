@@ -12,9 +12,6 @@
 #include <climits>
 #include <iomanip>
 #include <utility>
-#include<unordered_set>
-#include<unistd.h>
-#include<unordered_map>
 using namespace std;
 #define ll  long long
 #define ld  long double
@@ -54,5 +51,13 @@ int main() {
     tc {
         ll n; cin>>n;
         vi v(n); in(v);
+        ll co=0;
+        ll cz=0;
+        fi(i,0,n){
+            if(v[i]==-1) co++;
+            else if(v[i]==0) cz++;
+        }
+        ll ans= (co%2)*2+cz;
+        cout<<ans<<endl;
     }
 }
