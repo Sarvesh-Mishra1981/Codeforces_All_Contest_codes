@@ -52,26 +52,28 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
+        ll n,k; cin>>n>>k;
         vi v(n); in(v);
         /*
-        so the basic idea is that there is only 4 cases
-        1. first and last element are the small and large
-        2, fix the last and we tarverse the 0 to n-2
-        3. fix the first and  we traverse the 1 to n-1
-        4. we find the consecutive differnce in the elements
+        the basic idea is that what we will do is that we can get the answer through 3 str\ps
+        1.all small removal
+        2. all removal of the top 
+        3. iterate over the k and find the mix val
         */
-       ll maxi=0;
-       maxi=v[n-1]-v[0];
-       fi(i,0,n-1){
-        maxi=max(maxi,v[n-1]-v[i]);
-       }
-       fi(i,1,n){
-        maxi=max(maxi,v[i]-v[0]);
-       }
+       ll sum=0;
+       sort(v.begin(),v.end());
+       vector<ll> pre(n);
+       pre[0]=v[0];
         fi(i,1,n){
-        maxi=max(maxi,v[i]-v[i-1]);
-       }
-       cout<<maxi<<endl;
+            pre[i]=pre[i-1]+v[i];
+        }
+        for(ll i=0;i<=k;i++){
+            ll second=k-i;
+             ll left=2*i;
+             ll right=n-second-1;
+             ll ans=(pre[right])-(left==0?0:pre[left-1]);
+            sum=max(sum,ans);
+        }
+        cout<<sum<<endl;
     }
 }

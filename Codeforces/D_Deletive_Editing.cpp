@@ -47,31 +47,33 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
-
+bool solve(string& s,string& t){
+    unordered_map<int,int> m;
+    for(char x:t){
+        m[x]++;
+    }
+    int n=s.length();
+    for(int i=n-1;i>=0;i--){
+        if(m[s[i]]>0){
+            m[s[i]]--;
+        }
+        else if(m[s[i]]==0){
+        s[i]='.';
+    }}
+    string ans;
+    for(int i=0;i<n;i++){
+        if(s[i]!='.'){
+            ans.push_back(s[i]);
+        }
+    }
+    return (t==ans);
+}
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
-        vi v(n); in(v);
-        /*
-        so the basic idea is that there is only 4 cases
-        1. first and last element are the small and large
-        2, fix the last and we tarverse the 0 to n-2
-        3. fix the first and  we traverse the 1 to n-1
-        4. we find the consecutive differnce in the elements
-        */
-       ll maxi=0;
-       maxi=v[n-1]-v[0];
-       fi(i,0,n-1){
-        maxi=max(maxi,v[n-1]-v[i]);
-       }
-       fi(i,1,n){
-        maxi=max(maxi,v[i]-v[0]);
-       }
-        fi(i,1,n){
-        maxi=max(maxi,v[i]-v[i-1]);
-       }
-       cout<<maxi<<endl;
+        string s,t;
+        cin>>s>>t;
+        if(solve(s,t)) {Y;}
+        else N;
     }
 }
