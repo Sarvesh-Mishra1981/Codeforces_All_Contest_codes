@@ -52,26 +52,13 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
+        ll n,k; cin>>n>>k;
         vi v(n); in(v);
-        /*
-        so the basic idea is that there is only 4 cases
-        1. first and last element are the small and large
-        2, fix the last and we tarverse the 0 to n-2
-        3. fix the first and  we traverse the 1 to n-1
-        4. we find the consecutive differnce in the elements
-        */
-       ll maxi=0;
-       maxi=v[n-1]-v[0];
-       fi(i,0,n-1){
-        maxi=max(maxi,v[n-1]-v[i]);
-       }
-       fi(i,1,n){
-        maxi=max(maxi,v[i]-v[0]);
-       }
-        fi(i,1,n){
-        maxi=max(maxi,v[i]-v[i-1]);
-       }
-       cout<<maxi<<endl;
+        bool flag=false;
+        fi(i,0,n){
+            if(v[i]==k) flag=true;
+        }
+        if(flag) {Y;}
+        else N;
     }
 }
