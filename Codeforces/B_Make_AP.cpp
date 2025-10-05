@@ -52,22 +52,18 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n,k; cin>>n>>k;
-        ll count=INT_MAX;
-        ll res=0;
-        string s;
-        cin>>s;
-        fi(i,0,k){
-            if(s[i]=='W') {
-                res++;
-            }
-        }
-         count=min(count,res);
-        fi(i,k,n){
-            if(s[i]=='W') res++;
-            if(s[i-k]=='W') res--;
-            count=min(count,res);
-        }
-        cout<<count<<endl;
+        ll a,b,c;
+        cin>>a>>b>>c;
+        ll new_a,new_b,new_c;
+        new_a=(2*b)-c;
+        new_b=(a+c)/2;
+        new_c=(2*b)-a;
+        bool ans=false;
+        if(new_a/a>0 && new_a%a==0) ans=true;
+        if(new_b/b>0 && new_b%b==0 && (a+c)%2==0) ans=true;
+        if(new_c/c>0 && new_c%c==0) ans=true;
+        if(ans){
+            Y;
+        }else {N;}
     }
 }

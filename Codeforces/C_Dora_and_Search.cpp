@@ -47,27 +47,37 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
+void solve(vi& a, ll n) {
+    set<int> s(a.begin(), a.end());
+    long long i = 0, j = n - 1;
+
+    while (i <= j && !s.empty()) {
+        bool changed = false;
+        if (!s.empty() && (a[i] == *s.begin() || a[i] == *prev(s.end()))) {
+            s.erase(a[i]);
+            i++;
+            changed = true;
+        }
+
+        if (!s.empty() && (a[j] == *s.begin() || a[j] == *prev(s.end()))) {
+            s.erase(a[j]);
+            j--;
+            changed = true;
+        }
+
+        if (!changed) break;
+    }
+
+    if (i >= j) cout << -1 << endl;
+    else cout << i + 1 << " " << j + 1 << endl;
+}
 
 
 int main() {
     fast;
     tc {
-        ll n,k; cin>>n>>k;
-        ll count=INT_MAX;
-        ll res=0;
-        string s;
-        cin>>s;
-        fi(i,0,k){
-            if(s[i]=='W') {
-                res++;
-            }
-        }
-         count=min(count,res);
-        fi(i,k,n){
-            if(s[i]=='W') res++;
-            if(s[i-k]=='W') res--;
-            count=min(count,res);
-        }
-        cout<<count<<endl;
+        ll n; cin>>n;
+        vi v(n); in(v);
+        solve(v,n);
     }
 }

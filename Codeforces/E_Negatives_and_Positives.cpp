@@ -52,22 +52,20 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n,k; cin>>n>>k;
-        ll count=INT_MAX;
-        ll res=0;
-        string s;
-        cin>>s;
-        fi(i,0,k){
-            if(s[i]=='W') {
-                res++;
-            }
+        ll n; cin>>n;
+        vi v(n); in(v);
+        ll odd_count=0;
+        ll res=INT_MAX;
+        ll sum=0;
+        fi(i,0,n){
+            if(v[i]<0) odd_count++;
+            res=min(res,abs(v[i]));
+            sum+=abs(v[i]);
         }
-         count=min(count,res);
-        fi(i,k,n){
-            if(s[i]=='W') res++;
-            if(s[i-k]=='W') res--;
-            count=min(count,res);
+        if(odd_count%2==0) cout<<sum<<endl;
+        else {
+            ll ans=sum-2*(res);
+            cout<<ans<<endl;
         }
-        cout<<count<<endl;
     }
 }
