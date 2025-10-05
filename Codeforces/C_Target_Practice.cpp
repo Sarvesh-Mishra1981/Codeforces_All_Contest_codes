@@ -52,22 +52,21 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n,k; cin>>n>>k;
-        ll count=INT_MAX;
-        ll res=0;
-        string s;
-        cin>>s;
-        fi(i,0,k){
-            if(s[i]=='W') {
-                res++;
+        vector<vector<char>> v(10, vector<char>(10));
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                cin>>v[i][j];
             }
         }
-         count=min(count,res);
-        fi(i,k,n){
-            if(s[i]=='W') res++;
-            if(s[i-k]=='W') res--;
-            count=min(count,res);
+        int ans=0;
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                if(v[i][j]=='X'){
+                    int ring = min({i, j, 9-i, 9-j}); 
+                    ans += (ring+1);
+                }
+            }
         }
-        cout<<count<<endl;
+        cout<<ans<<endl;
     }
 }
