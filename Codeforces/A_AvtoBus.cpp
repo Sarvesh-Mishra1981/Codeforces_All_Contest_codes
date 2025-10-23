@@ -47,21 +47,18 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+void solve(ll n){
+    if(n<4 || n%2!=0) {cout<<-1<<endl; return;}
+    else 
+    {ll min=((n+5)/6);
+    ll max=n/4;
+    cout<<min<<" "<<max<<endl;}
+}
 
 int main() {
     fast;
     tc {
-       string s;
-       cin>>s;
-       ll n=s.length();
-       ll c0=0,c1=0;
-      fi(i,0,n){
-        if(s[i]=='0') c0++;
-        else c1++;
-      }
-      ll d=min(c0,c1);
-      if(d%2==0) cout<<"NET"<<endl;
-      else cout<<"DA"<<endl;
+        ll n; cin>>n;
+        solve(n);
     }
 }

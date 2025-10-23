@@ -47,21 +47,28 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+bool solve(ll x,ll y, ll z){
+     for (int i=0; i<32; i++) {
+        int xi=(x>>i)&1;
+        int yi=(y>>i) & 1;
+        int zi =(z>>i)&1;
+        if (!((xi==0 && yi== 0 && zi== 0) ||
+              (xi== 0 && yi== 1 && zi== 0) ||
+              (xi== 0 && yi== 0 && zi== 1) ||
+              (xi== 1 && yi== 0 && zi== 0) ||
+              (xi== 1 && yi== 1 && zi== 1))) {
+            return false;
+        }
+    }
+    return true;
+}
 
 int main() {
     fast;
     tc {
-       string s;
-       cin>>s;
-       ll n=s.length();
-       ll c0=0,c1=0;
-      fi(i,0,n){
-        if(s[i]=='0') c0++;
-        else c1++;
-      }
-      ll d=min(c0,c1);
-      if(d%2==0) cout<<"NET"<<endl;
-      else cout<<"DA"<<endl;
+       ll x,y,z;
+       cin>>x>>y>>z;
+        if(solve(x,y,z)) Y;
+        else N;
     }
 }
