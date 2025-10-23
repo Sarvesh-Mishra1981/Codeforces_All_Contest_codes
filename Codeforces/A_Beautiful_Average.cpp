@@ -50,18 +50,14 @@ const int Na = 2e5+5;
 
 
 int main() {
-    fast;
-    tc {
-       string s;
-       cin>>s;
-       ll n=s.length();
-       ll c0=0,c1=0;
-      fi(i,0,n){
-        if(s[i]=='0') c0++;
-        else c1++;
-      }
-      ll d=min(c0,c1);
-      if(d%2==0) cout<<"NET"<<endl;
-      else cout<<"DA"<<endl;
+    int t; 
+    cin >> t;
+    while (t--) {
+        int n; 
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+        cout << *max_element(a.begin(), a.end()) << endl;
     }
+    return 0;
 }

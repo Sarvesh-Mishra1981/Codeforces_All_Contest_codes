@@ -52,16 +52,11 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-       string s;
-       cin>>s;
-       ll n=s.length();
-       ll c0=0,c1=0;
-      fi(i,0,n){
-        if(s[i]=='0') c0++;
-        else c1++;
-      }
-      ll d=min(c0,c1);
-      if(d%2==0) cout<<"NET"<<endl;
-      else cout<<"DA"<<endl;
+        string s;
+        cin>>s;
+        ll n=s.length();
+        s[0]=s[n-1];
+        cout<<s<<endl;
+
     }
 }
