@@ -47,34 +47,29 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(const string &s, ll n){
-    unordered_map<char,ll> sc;
-    unordered_set<char> fp;
-    for (ll i = 0; i < n; ++i) sc[s[i]]++;
-
-    ll ans = 0;
-    for (ll i = 0; i < n; ++i){
-        fp.insert(s[i]);
-        sc[s[i]]--;
-        if (sc[s[i]] == 0) sc.erase(s[i]);
-        ans = max(ans, (ll)fp.size() + (ll)sc.size());
+ll solve(vi& a,ll d,ll n){
+    sort(a.begin(),a.end(),greater<ll>());
+    ll left=0;
+    ll right=n;
+    ll teams=0;
+    ll team_size=1;
+    while(left<right){
+        if((a[left]*team_size)<=d && left<right){
+            right--;
+            team_size++;
+        }else{
+            teams++;
+            left++;
+            team_size=1;
+        }
     }
-
-    return ans;
+    return teams;
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    fast;
+        ll n,d; cin>>n>>d;
+        vi v(n); in(v);
+        cout<<solve(v,d,n)<<endl;
 
-    ll t; 
-    if (!(cin >> t)) return 0;
-    while (t--){
-        ll n; 
-        cin >> n;
-        string s;
-        cin >> s;
-        cout << solve(s, n) << '\n';
-    }
-    return 0;
 }
