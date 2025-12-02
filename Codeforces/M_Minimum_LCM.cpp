@@ -14,6 +14,7 @@
 #include <utility>
 #include<unordered_set>
 #include<unistd.h>
+#include <numeric>
 #include<unordered_map>
 using namespace std;
 #define ll  long long
@@ -47,34 +48,18 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(const string &s, ll n){
-    unordered_map<char,ll> sc;
-    unordered_set<char> fp;
-    for (ll i = 0; i < n; ++i) sc[s[i]]++;
+long long gcd(long long a, long long b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
 
-    ll ans = 0;
-    for (ll i = 0; i < n; ++i){
-        fp.insert(s[i]);
-        sc[s[i]]--;
-        if (sc[s[i]] == 0) sc.erase(s[i]);
-        ans = max(ans, (ll)fp.size() + (ll)sc.size());
-    }
-
-    return ans;
+long long lcm(long long a, long long b) {
+    return (a / gcd(a, b)) * b;
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    ll t; 
-    if (!(cin >> t)) return 0;
-    while (t--){
-        ll n; 
-        cin >> n;
-        string s;
-        cin >> s;
-        cout << solve(s, n) << '\n';
+    fast;
+    tc {
+        ll n; cin>>n;
+        
     }
-    return 0;
 }
