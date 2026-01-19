@@ -53,6 +53,9 @@ int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi a(n); in(a);
+        fi(i,1,n+1){
+            cout<<i<<" ";
+        }
+        cout<<endl;
     }
 }

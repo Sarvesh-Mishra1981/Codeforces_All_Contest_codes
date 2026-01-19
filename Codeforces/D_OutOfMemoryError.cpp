@@ -48,11 +48,37 @@ const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
 
-
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
-        vi a(n); in(a);
+        ll n, m, h; 
+        cin >> n >> m >> h;
+        
+        vi a(n); 
+        in(a);
+        
+        vpi b(m); 
+        inp(b);
+
+        vi c = a;      
+        vi hist;    
+
+        fi(i, 0, m) {
+            ll idx = b[i].ff - 1; 
+            ll val = b[i].ss;
+
+            c[idx] += val;
+            hist.pb(idx);
+
+            if(c[idx] > h) {
+                for(auto &x : hist) {
+                    c[x] = a[x];
+                }
+                hist.clear();
+            }
+        }
+
+        out(c);
+        nl;
     }
 }

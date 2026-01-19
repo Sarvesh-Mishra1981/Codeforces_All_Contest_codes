@@ -47,12 +47,25 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
-
 int main() {
     fast;
     tc {
         ll n; cin>>n;
         vi a(n); in(a);
+        ll ans=0;
+        sort(a.begin(),a.end());
+       fi(i,0,n){
+        ll x=-a[i];
+        unordered_set<ll> m;
+        fi(j,i,n){
+            ll val=a[j]+x;
+            if(val>=0)
+           { m.insert(val);}
+        }
+       ll mex=0;
+       while(m.count(mex)) mex++;
+       ans=max(ans,mex);
+       }
+       cout<<ans<<endl;
     }
 }

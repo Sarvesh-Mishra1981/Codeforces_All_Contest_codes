@@ -52,7 +52,21 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
+        ll n,m,k; cin>>n>>m>>k;
         vi a(n); in(a);
+        vi b(m); in(b);
+        string dis;
+        cin>>dis;
+        unordered_set<ll> pin;
+        fi(i,0,m){
+            pin.insert(b[i]);
+        }
+        fi(i,0,dis.length()){
+            fi(j,0,n){
+                if(dis[i]=='L'){
+                    
+                }
+            }
+        }
     }
 }

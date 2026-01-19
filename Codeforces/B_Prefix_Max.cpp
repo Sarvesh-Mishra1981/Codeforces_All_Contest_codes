@@ -53,6 +53,11 @@ int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi a(n); in(a);
+        vi v(n); in(v);
+        ll maxi=INT_MIN;
+        fi(i,0,n){
+            maxi=max(maxi,v[i]);
+        }
+        cout<<maxi*n<<endl;
     }
 }
