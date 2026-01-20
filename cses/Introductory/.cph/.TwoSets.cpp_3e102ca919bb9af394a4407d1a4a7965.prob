@@ -1,0 +1,1 @@
+{"name":"Local: TwoSets","url":"/Users/sarvesh/Documents/Codeforces/cses/Introductory/TwoSets.cpp","tests":[{"id":1768891626148,"input":"7","output":"YES\n4\n1 2 4 7\n3\n3 5 6"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/sarvesh/Documents/Codeforces/cses/Introductory/TwoSets.cpp","group":"local","local":true}
