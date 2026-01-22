@@ -47,28 +47,31 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-bool parity(ll a,ll b){
-    return (abs(a) % 2) != (abs(b) % 2);
-}
-ll solve(vi& a,ll n){
-    ll curr=a[0];
-    ll global_curr=a[0];
-    fi(i,1,n){
-        // using the kadens algo
-        if(i>0 && parity(a[i],a[i-1])){
-            curr=max(a[i],curr+a[i]);
-        }else {
-            curr=a[i];
+void solve(vi& a,vi& q,ll n,ll m){
+    vector<ll> color(51,n+1);
+    fi(i,0,n){
+        if(color[a[i]]==n+1){
+            color[a[i]]=i+1;
         }
-        global_curr=max(global_curr,curr);
     }
-    return global_curr;
+    fi(i,0,m){
+        ll col=q[i];
+        cout<<color[col]<<" ";
+        for(ll j=1;j<=50;j++){
+            if(color[col]>color[j]){
+                color[j]++;
+            }
+        }
+        color[col]=1;
+    }
+    cout<<endl;
 }
+
 int main() {
     fast;
-    tc {
-        ll n; cin>>n;
+
+        ll n,m; cin>>n>>m;
         vi a(n); in(a);
-        cout<<solve(a,n)<<endl;
-    }
+        vi q(m); in(q);
+        solve(a,q,n,m);
 }

@@ -47,28 +47,46 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-bool parity(ll a,ll b){
-    return (abs(a) % 2) != (abs(b) % 2);
-}
-ll solve(vi& a,ll n){
-    ll curr=a[0];
-    ll global_curr=a[0];
-    fi(i,1,n){
-        // using the kadens algo
-        if(i>0 && parity(a[i],a[i-1])){
-            curr=max(a[i],curr+a[i]);
-        }else {
-            curr=a[i];
+ll path;
+ll n = 7;
+bool vis[7][7];
+void solve(ll i, ll j,ll idx, string& s) {
+    if (i == n-1 && j == 0) {
+        if (idx==48) {
+            path++;
         }
-        global_curr=max(global_curr,curr);
+        return;
     }
-    return global_curr;
+    if (idx == 48) return;
+    bool hit_up = (i == 0 || vis[i - 1][j]);
+    bool hit_down = (i == n - 1 || vis[i + 1][j]);
+    bool hit_left = (j == 0 || vis[i][j - 1]);
+    bool hit_right = (j == n - 1 || vis[i][j + 1]);
+    if (hit_left && hit_right && !hit_up && !hit_down) return;
+    if (hit_up && hit_down && !hit_left && !hit_right) return;
+    vis[i][j] = true;
+    char ch=s[idx];
+    if ((ch=='?' || ch=='L')&& j > 0 && !vis[i][j-1]) {
+        solve(i, j-1,idx+1, s);
+    }
+    if ((ch=='?' || ch=='R')&&j < n-1 && !vis[i][j+1]) {
+        solve(i, j+1,idx+1, s);
+    }
+    if ((ch=='?' || ch=='U')&&i > 0 && !vis[i-1][j]) {
+        solve(i-1, j,idx+1, s);
+    }
+    if ((ch=='?' || ch=='D') && i < n-1 && !vis[i+1][j]) {
+        solve(i+1, j,idx+1, s);
+    }
+    vis[i][j] = false;
 }
+
 int main() {
     fast;
-    tc {
-        ll n; cin>>n;
-        vi a(n); in(a);
-        cout<<solve(a,n)<<endl;
-    }
+        string s;
+        cin >> s;
+        path = 0;
+        string curr = "";
+        solve(0, 0,0, s);
+        cout << path << endl;
 }

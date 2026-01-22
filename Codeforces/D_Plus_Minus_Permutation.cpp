@@ -47,28 +47,35 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-bool parity(ll a,ll b){
-    return (abs(a) % 2) != (abs(b) % 2);
+ll gcd(ll a,ll b){
+    if(b==0) return a;
+    return gcd(b,a%b);
 }
-ll solve(vi& a,ll n){
-    ll curr=a[0];
-    ll global_curr=a[0];
-    fi(i,1,n){
-        // using the kadens algo
-        if(i>0 && parity(a[i],a[i-1])){
-            curr=max(a[i],curr+a[i]);
-        }else {
-            curr=a[i];
-        }
-        global_curr=max(global_curr,curr);
-    }
-    return global_curr;
+ll lcm(ll a, ll b) {
+    if (a == 0 || b == 0) return 0;
+    return (a / gcd(a, b)) * b; 
+}
+ll sumOfmax(ll k,ll n){
+   return (((n*(n+1))/2)-((n-k)*(n-k+1)/2));
+}
+ll sumOfmin(ll x){
+    return ((x*(x+1))/2);
+}
+ll solve(ll n,ll x,ll y){
+    ll div1=n/x;
+    ll div2=n/y;
+    // now finding the overlap region
+    ll z=lcm(x,y);
+    ll common=n/z;
+    div1-=common;
+    div2-=common;
+
+    return (sumOfmax(div1,n)-sumOfmin(div2));
 }
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
-        vi a(n); in(a);
-        cout<<solve(a,n)<<endl;
+        ll n,x,y; cin>>n>>x>>y;
+        cout<<solve(n,x,y)<<endl;
     }
 }
