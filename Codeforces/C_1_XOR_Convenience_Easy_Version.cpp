@@ -47,24 +47,29 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-bool solve(vi& a,ll n){
-    vector<pair<ll,ll>> v;
-    fi(i,0,n){
-        v.push_back({a[i],i%2});
+vi solve(ll n){
+    vi ans(n,1);
+    unordered_set<ll> mp;
+    fi(i,2,n+1){
+        mp.insert(i);
     }
-    sort(v.begin(),v.end());
-    fi(i,1,n){
-        if(v[i].second==v[i-1].second) return false;
+    for(ll i=n-2;i>=1;i--){
+        ans[i]^=(i+1);
+        mp.erase(ans[i]);
     }
-    return true;
+    auto it = mp.begin();
+    ans[0]=*it;
+    return ans;
 }
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi a(n); in(a);
-        if(solve(a,n)) Y;
-        else N;
+       vi a=solve(n);
+       fi(i,0,a.size()){
+        cout<<a[i]<<" ";
+       }
+       cout<<endl;
     }
 }

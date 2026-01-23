@@ -47,27 +47,36 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-bool isSorted(vi& a,int n){
-    fi(i,0,n-1){
-        if(a[i]>a[i+1]) return false;
-    }
-    return true;
-}
-
-ll solve(vi& a,ll n){
-    ll mini=INT_MAX;
-    if(!isSorted(a,n)) return 0;
+void solve(ll n,vi& a){
+    ll minDiff=INT_MAX;
+    ll flag=true;
     fi(i,1,n){
-        mini=min(mini,a[i]-a[i-1]);
+        if(a[i-1]>a[i]){
+            flag=false;
+            break;
+        }
     }
-    return (mini/2)+1;
+    if(!flag){
+        cout<<0<<endl;
+        return;
+    }
+    fi(i,1,n){
+        minDiff=min(minDiff,abs(a[i-1]-a[i]));
+    }
+    if(minDiff&1){
+        ll ans=(minDiff+1)/2;
+        cout<<ans<<endl;
+    }else{
+        ll ans=(minDiff+2)/2;
+        cout<<ans<<endl;
+    }
 }
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi v(n); in(v);
-        cout<<solve(v,n)<<endl;
+        vi a(n); in(a);
+       solve(n,a);
     }
 }

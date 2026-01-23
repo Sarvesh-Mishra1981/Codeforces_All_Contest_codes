@@ -47,13 +47,43 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-vi&
+
 
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
-        string s; cin>>s;
-        
+        ll n; char ch; cin>>n>>ch;
+        string s;
+        cin>>s;
+        ll cnt =0;
+        fi(i,0,n){
+            if(s[i]!=ch){
+               cnt++;
+            }
+        }
+        if(cnt==0){
+            cout<<0<<endl;
+            continue;
+        }
+        ll val=-1;
+        for(ll i=2;i<=n;i++){
+            bool flag=true;
+    for(ll j=i;j<=n;j+=i){
+        if(s[j-1]!=ch){
+            flag=false;
+            break;
+        }
+    }
+    if(flag){
+        val=i;
+        break;
+    }
+}
+if(val!=-1){
+    cout<<1<<endl<<val<<endl;
+    continue;
+}
+
+        cout<<2<<endl<<n<<" "<<n-1<<endl;
     }
 }

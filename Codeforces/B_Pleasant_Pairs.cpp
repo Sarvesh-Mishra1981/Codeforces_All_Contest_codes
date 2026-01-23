@@ -47,16 +47,24 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-bool solve(vi& a,ll n){
-    vector<pair<ll,ll>> v;
+ll solve(vi& a,ll n){
+    ll val=0;
+    vector<pair<ll,ll>> m;
     fi(i,0,n){
-        v.push_back({a[i],i%2});
+        m.push_back({a[i],i+1});
     }
-    sort(v.begin(),v.end());
-    fi(i,1,n){
-        if(v[i].second==v[i-1].second) return false;
+    sort(m.begin(),m.end());
+    for(ll i=0;i<n;i++){
+        for(ll j=i+1;j<n;j++){
+            if((m[i].first*m[j].first)>=(2*n)){
+                break;
+            }
+            if((m[i].first*m[j].first)==(m[i].second+m[j].second)){
+                val++;
+            }
+        }
     }
-    return true;
+    return val;
 }
 
 int main() {
@@ -64,7 +72,6 @@ int main() {
     tc {
         ll n; cin>>n;
         vi a(n); in(a);
-        if(solve(a,n)) Y;
-        else N;
+        cout<<solve(a,n)<<endl;
     }
 }
