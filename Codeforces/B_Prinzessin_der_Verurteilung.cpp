@@ -47,24 +47,45 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(ll n,vi& a){
-    unordered_map<ll,ll> m;
-    ll ans=0;
-    fi(i,0,n){
-        ll res=(ll)log2(a[i]);
-        if(m.find(res)!=m.end()){
-            ans+=m[res];
+void solve(string s,ll n){
+    string mex="";
+    for(char ch='a';ch<='z';ch++){
+        if(s.find(ch)==string::npos){
+            mex=ch;
+            break;
         }
-        m[res]++;
     }
-    return ans;
+    for(char ch='a';ch<='z';ch++){
+        for(char zh='a';zh<='z';zh++){
+            string temp="";
+            temp.push_back(ch);
+            temp.push_back(zh);
+            if(mex=="" && s.find(temp)==string::npos){
+                mex=temp;
+            }
+        }
+    }
+    for(char ch='a';ch<='z';ch++){
+        for(char zh='a';zh<='z';zh++){
+            for(char xh='a';xh<='z';xh++){
+            string temp="";
+            temp.push_back(ch);
+            temp.push_back(zh);
+            temp.push_back(xh);
+            if(mex=="" && s.find(temp)==string::npos){
+                mex=temp;
+            }
+        }}
+    }
+    cout<<mex<<endl;
 }
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi a(n); in(a);
-        cout<<solve(n,a)<<endl;
+        string s;
+        cin>>s;
+        solve(s,n);
     }
 }

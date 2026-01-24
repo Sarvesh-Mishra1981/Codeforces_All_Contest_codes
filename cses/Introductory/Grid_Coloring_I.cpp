@@ -47,24 +47,41 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(ll n,vi& a){
-    unordered_map<ll,ll> m;
-    ll ans=0;
+void solve(vector<vector<char>>& a,ll n,ll m){
     fi(i,0,n){
-        ll res=(ll)log2(a[i]);
-        if(m.find(res)!=m.end()){
-            ans+=m[res];
+        fi(j,0,m){
+            if((i+j)&1){
+                if(a[i][j]=='A') {
+                    a[i][j]='B';
+                }else{
+                    a[i][j]='A';
+                }
+            }else{
+                if(a[i][j]=='C') {
+                    a[i][j]='D';
+                }else{
+                    a[i][j]='C';
+                }
+            }
         }
-        m[res]++;
     }
-    return ans;
+    fi(i,0,n){
+        fi(j,0,m){
+            cout<<a[i][j];
+        }
+        cout<<endl;
+    }
 }
 
 int main() {
     fast;
-    tc {
-        ll n; cin>>n;
-        vi a(n); in(a);
-        cout<<solve(n,a)<<endl;
-    }
+
+        ll n,m; cin>>n>>m;
+        vector<vector<char>> a(n,vector<char>(m));
+        fi(i,0,n){
+            fi(j,0,m){
+                cin>>a[i][j];
+            }
+        }
+        solve(a,n,m);
 }

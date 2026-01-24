@@ -47,17 +47,40 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(ll n,vi& a){
-    unordered_map<ll,ll> m;
-    ll ans=0;
-    fi(i,0,n){
-        ll res=(ll)log2(a[i]);
-        if(m.find(res)!=m.end()){
-            ans+=m[res];
+bool isSorted(vi& a,ll n){
+    fi(i,1,n){
+        if(a[i-1]>a[i]){
+            return false;
         }
-        m[res]++;
     }
-    return ans;
+    return true;
+}
+void solve(ll n,vi& a){
+    if(isSorted(a,n)){
+        cout<<0<<endl;
+        return;
+    }
+    if(n < 3){
+        cout << -1 << endl;
+        return;
+    }
+    if((a[n-2]>a[n-1])|| (a[n-1]<0)){
+        cout<<-1<<endl;
+        return;
+    }
+    vector<vector<ll>> res;
+    for(ll i=n-3;;i--){
+        if(a[i]>a[i+1]){
+            res.push_back({i+1,i+2,n});
+            a[i]=(a[i+1]-a[n-1]);
+        }
+        if(i==0) break;
+    }
+    cout<<res.size()<<endl;
+    fi(i,0,res.size()){
+        cout<<res[i][0]<<" "<<res[i][1]<<" "<<res[i][2]<<endl;
+    }
+
 }
 
 int main() {
@@ -65,6 +88,6 @@ int main() {
     tc {
         ll n; cin>>n;
         vi a(n); in(a);
-        cout<<solve(n,a)<<endl;
+        solve(n,a);
     }
 }
