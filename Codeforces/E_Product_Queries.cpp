@@ -47,37 +47,45 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+vi factor(ll x){
+    vi a;
+    for(ll i=1;i*i<=x;i++){
+        if(x%i==0){
+            a.push_back(i);
+        }
+        if(i!=x/i){
+            a.push_back(x/i);
+        }
+    }
+    return a;
+}
+void solve(vi& a,ll n){
+    vector<ll> vis(n+1,0);
+    vector<ll> b(n+1,INT_MAX/100);
+    fi(i,0,n){
+        vis[a[i]]=1;
+    }
+    fi(i,1,n+1){
+        if(vis[i]){
+            b[i]=1; continue;
+        }
+        vi fac=factor(i);
+        for(auto f:fac){
+            if(vis[f])
+            {b[i]=min(b[i],1+b[i/f]);}
+        }
+    }
+    fi(i,1,n+1){
+        cout<<(b[i]>=INT_MAX/100?-1:b[i])<<" ";
+    }
+    cout<<endl;
+}
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
         vi a(n); in(a);
-        vi b;
-        for(ll i=n;i>=1;i--){
-            b.push_back(i);
-        }
-        ll idx1=-1,target=-1,idx2=0;
-        fi(i,0,n){
-            if(a[i]==b[i]) continue;
-            else{
-                idx1=i;
-                target=b[i];
-                break;
-            }}
-        if(idx1!=-1)
-       { idx2=idx1;
-        fi(i,idx1,n){
-
-            if(a[i]==target){
-                idx2=i;
-                break;
-            }
-        }
-        reverse(a.begin()+idx1,a.begin()+idx2+1);
+        solve(a,n);
     }
-        out(a);
-        nl;
-    
-}}
+}

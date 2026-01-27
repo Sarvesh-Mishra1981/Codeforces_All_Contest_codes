@@ -47,37 +47,44 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+bool solve(string& a,string &b,ll n){
+    vector<bool> have(n,false);
+    ll to=0,te=0;
+    fi(i,0,n){
+        if(a[i]&1) to++;
+        else te++;
+        if(to==te){
+            have[i]=true;
+        }
+    }
+    ll chncnt=0;
+    for(ll i=n-1;i>=0;i--){
+        if(chncnt&1){
+            if(a[i]==b[i]){
+                if(!have[i]){
+                    return false;
+                }
+                chncnt++;
+            }
+        }else{
+            if(a[i]!=b[i]){
+                if(!have[i]){
+                    return false;
+                }
+                chncnt++;
+            }
+        }
+    }
+    return true;
+}
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi a(n); in(a);
-        vi b;
-        for(ll i=n;i>=1;i--){
-            b.push_back(i);
-        }
-        ll idx1=-1,target=-1,idx2=0;
-        fi(i,0,n){
-            if(a[i]==b[i]) continue;
-            else{
-                idx1=i;
-                target=b[i];
-                break;
-            }}
-        if(idx1!=-1)
-       { idx2=idx1;
-        fi(i,idx1,n){
-
-            if(a[i]==target){
-                idx2=i;
-                break;
-            }
-        }
-        reverse(a.begin()+idx1,a.begin()+idx2+1);
+        string a,b;
+        cin>>a>>b;
+        if(solve(a,b,n)) Y;
+        else N;
     }
-        out(a);
-        nl;
-    
-}}
+}

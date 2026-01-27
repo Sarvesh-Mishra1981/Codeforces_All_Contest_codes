@@ -47,37 +47,19 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+ll solve(vi& a,ll n,ll t){
+    unordered_set<ll> mp;
+    fi(i,0,n){
+        mp.insert(a[i]%t);
+    }
+    return mp.size();
+}
 
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
+        ll n,t; cin>>n>>t;
         vi a(n); in(a);
-        vi b;
-        for(ll i=n;i>=1;i--){
-            b.push_back(i);
-        }
-        ll idx1=-1,target=-1,idx2=0;
-        fi(i,0,n){
-            if(a[i]==b[i]) continue;
-            else{
-                idx1=i;
-                target=b[i];
-                break;
-            }}
-        if(idx1!=-1)
-       { idx2=idx1;
-        fi(i,idx1,n){
-
-            if(a[i]==target){
-                idx2=i;
-                break;
-            }
-        }
-        reverse(a.begin()+idx1,a.begin()+idx2+1);
+        cout<<solve(a,n,t)<<endl;
     }
-        out(a);
-        nl;
-    
-}}
+}

@@ -47,30 +47,30 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(vi& a,ll n,ll target){
-   ll total = accumulate(a.begin(), a.end(), 0LL);
-    ll need = total - target;
-   if(need<0) return -1;
-   if(need==0) return 0;
-   ll l=0,curr=0,maxlen=-1;
-   for(ll r=0;r<n;r++){
-        curr+=a[r];
-    while(curr>need && l<=r){
-        curr-=a[l++];
+ll solve(vi& a,ll n,ll t){
+    map<ll,ll> mp;
+    mp[0]=-1;
+    vi pre(n);
+    ll sum=0;
+    ll ans=-1;
+    fi(i,0,n){
+        sum+=a[i];
+        if(mp.count(sum-t)){
+            ans=max(ans,i-mp[sum-t]);
+        }
+        if(!mp.count(sum)){
+            mp[sum]=i;
+        }
     }
-    if(curr==need) {
-        maxlen=max(maxlen,r-l+1);
-    }
-   }
-   if(maxlen==-1) return -1;
-   return n-maxlen;
+if(ans==-1) return -1;
+else return n-ans;
 }
 
 int main() {
     fast;
     tc {
-        ll n,target; cin>>n>>target;
+        ll n,t; cin>>n>>t;
         vi a(n); in(a);
-        cout<<solve(a,n,target)<<endl;
+        cout<<solve(a,n,t)<<endl;
     }
 }

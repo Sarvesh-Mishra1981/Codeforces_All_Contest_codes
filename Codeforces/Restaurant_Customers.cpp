@@ -48,36 +48,37 @@ const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
 
+ll solve(vector<pair<ll,ll>>& a,ll n){
+    sort(a.begin(),a.end(),[&](pair<ll,ll>& a,pair<ll,ll>& b){
+        if(a.second==b.second){
+            a.first<b.first;
+        }
+        return a.second<b.second;
+    });
+    ll ans=0;
+    ll idx=0;
+    ll res=1;
+    fi(i,1,n){
+        if(a[i].first<=a[i-1].second){
+            res++;
+            ans=max(ans,res);
+        }
+        else{
+            res=1;
+        }
+    }
+    return ans;
+}
 
 int main() {
     fast;
-    tc {
         ll n; cin>>n;
-        vi a(n); in(a);
-        vi b;
-        for(ll i=n;i>=1;i--){
-            b.push_back(i);
-        }
-        ll idx1=-1,target=-1,idx2=0;
+        vector<pair<ll,ll>> a;
         fi(i,0,n){
-            if(a[i]==b[i]) continue;
-            else{
-                idx1=i;
-                target=b[i];
-                break;
-            }}
-        if(idx1!=-1)
-       { idx2=idx1;
-        fi(i,idx1,n){
-
-            if(a[i]==target){
-                idx2=i;
-                break;
-            }
+            ll x,y;
+            cin>>x>>y;
+            a.push_back({x,y});
         }
-        reverse(a.begin()+idx1,a.begin()+idx2+1);
-    }
-        out(a);
-        nl;
-    
-}}
+    cout<<solve(a,n)<<endl;
+}
+ 

@@ -47,17 +47,22 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(vi& a,ll n){
-    ll cnt=0;
-    fi(i,0,n){
-        if(a[i]%2!=0){
-            cnt++;
+ll solve(vi& a, ll n){
+    ll ans=0;
+    for (int k = 1; k <= 60; k++) {
+        ll mod = (1LL << k);
+        set<ll> m;
+        for (int i =0; i<n; i++) {
+            m.insert(a[i]%mod);
         }
+        if(m.size()==2){
+            ans=k;
+            break;
+        }
+        
     }
-    if(cnt>0) return 2;
-    else return 3;
+return ans;
 }
-
 int main() {
     fast;
     tc {
