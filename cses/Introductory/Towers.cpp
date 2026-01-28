@@ -47,12 +47,23 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+ll solve(vi& a,ll n){
+    multiset<ll> ans;
+    fi(i,0,n){
+        auto it=ans.upper_bound(a[i]);
+        if(it==ans.end()){
+            ans.insert(a[i]);
+        }else{
+            ans.erase(it);
+            ans.insert(a[i]);
+        }
+    }
+    return ans.size();
+}
 
 int main() {
     fast;
-    tc {
-        ll n; cin>>n;x
+        ll n; cin>>n;
         vi a(n); in(a);
-    }
+        cout<<solve(a,n)<<endl;
 }

@@ -47,12 +47,20 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+ll solve(vi& a,ll n){
+    sort(a.begin(),a.end());
+    ll mid=a[(n)/2];
+    ll sum=0;
+    fi(i,0,n){
+        sum+=abs(a[i]-mid);
+    }
+    return sum;
+}
 
 int main() {
     fast;
-    tc {
-        ll n; cin>>n;x
+
+        ll n; cin>>n;
         vi a(n); in(a);
-    }
+    cout<<solve(a,n)<<endl;
 }

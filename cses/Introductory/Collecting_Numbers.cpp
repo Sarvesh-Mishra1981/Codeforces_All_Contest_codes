@@ -47,12 +47,23 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+ll solve(vi& a,ll n){
+    vi idx(n+1);
+    fi(i,0,n){
+        idx[a[i]]=i;
+    }
+    ll ans=1;
+    fi(i,1,n){
+        if(idx[i+1]<idx[i]){
+            ans++;
+        }
+    }
+    return ans;
+}
 
 int main() {
     fast;
-    tc {
-        ll n; cin>>n;x
+        ll n; cin>>n;
         vi a(n); in(a);
-    }
+        cout<<solve(a,n)<<endl;
 }

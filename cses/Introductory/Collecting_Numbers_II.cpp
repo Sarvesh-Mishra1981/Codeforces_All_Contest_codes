@@ -47,12 +47,32 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
+ll cnt(vi& idx,ll n,ll idx1,ll idx2){
+    if(idx1==1 ||idx[idx1]==)
+}
+ll solve(vi& a,ll n,vector<pair<ll,ll>>& b,ll m){
+    vi idx(n+1);
+    ll ans=0;
+    fi(i,0,n){
+        idx[a[i]]=i;
+    }
+    fi(i,1,n){
+        if(idx[i]>idx[i+1]){
+            ans++;
+        }
+    }
 
+}
 
 int main() {
     fast;
-    tc {
-        ll n; cin>>n;x
+
+        ll n,m; cin>>n>>m;
         vi a(n); in(a);
-    }
+        vector<pair<ll,ll>> b;
+        fi(i,0,m){
+            ll x,y;
+            cin>>x>>y;
+            b.push_back({x,y});
+        }
 }
