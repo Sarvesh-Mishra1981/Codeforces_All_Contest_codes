@@ -52,7 +52,7 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n; cin>>n;x
+        ll n; cin>>n;
         vi a(n); in(a);
     }
 }

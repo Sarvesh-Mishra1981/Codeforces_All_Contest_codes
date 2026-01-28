@@ -47,32 +47,40 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(vi& a, ll n, ll k) {
-    __int128 nsum = 0;
-    __int128 ssum = 0;
-    for(int i = 0; i < n; i++) {
-        nsum += a[i];
-        ssum += (__int128)a[i] * a[i];
+void solve(vi& a,ll n){
+    map<ll,ll> m;
+    fi(i,0,n){
+        m[a[i]]++;
     }
-    __int128 A = n;
-    __int128 B = 2 * nsum;
-    __int128 C = ssum - (__int128)k;
-    __int128 discriminant = B * B - 4 * A * C;
+    ll sum= accumulate(a.begin(),a.end(),0LL);
+    vector<ll> ans;
+    fi(i,0,n){
+        if(--m[a[i]]==0) m.erase(a[i]);
 
-    if (discriminant < 0) return -1;
-    ll rootD = (ll)round(sqrtl((long double)discriminant));
-    __int128 x1 = (-(__int128)B + rootD) / (2 * A);
-    __int128 x2 = (-(__int128)B - rootD) / (2 * A);
-    if (x1 > 0 && (A * x1 * x1 + B * x1 + C == 0)) return (ll)x1;
-    if (x2 > 0 && (A * x2 * x2 + B * x2 + C == 0)) return (ll)x2;
+        ll target=(sum-a[i]);
+        if(target%2==0) {
+            target/=2;
+        if(m.count(target)){
+            ans.push_back(i+1);
+        }
+        }
+        m[a[i]]++;
+    }
+    cout<<ans.size()<<endl;
+    if(ans.size()==0){
+        return;
+    }
 
-    return -1; 
+    fi(i,0,ans.size()){
+
+        cout<<ans[i]<<" ";
+    }
+    nl;
 }
+
 int main() {
     fast;
-    tc {
-        ll n,k; cin>>n>>k;
+        ll n; cin>>n;
         vi a(n); in(a);
-        cout<<solve(a,n,k)/2<<endl;
-    }
+        solve(a,n);
 }

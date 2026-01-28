@@ -47,32 +47,33 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(vi& a, ll n, ll k) {
-    __int128 nsum = 0;
-    __int128 ssum = 0;
-    for(int i = 0; i < n; i++) {
-        nsum += a[i];
-        ssum += (__int128)a[i] * a[i];
+bool solve(vi& a,ll n){
+    vi preodd(n,0),preeven(n,0);
+    map<ll,ll> mp;
+    preeven[0]=a[0];
+    mp[preeven[0]-preodd[0]]++;
+    fi(i,1,n){
+        preodd[i]+=preodd[i-1];
+        preeven[i]+=preeven[i-1];
+        if(i&1){
+            preodd[i]+=a[i];
+        }else{
+            preeven[i]+=a[i];
+        }
+        mp[preeven[i]-preodd[i]]++;
+        if(mp[preeven[i]-preodd[i]]==2 || preeven[i]-preodd[i]==0){
+            return true;
+        }
     }
-    __int128 A = n;
-    __int128 B = 2 * nsum;
-    __int128 C = ssum - (__int128)k;
-    __int128 discriminant = B * B - 4 * A * C;
-
-    if (discriminant < 0) return -1;
-    ll rootD = (ll)round(sqrtl((long double)discriminant));
-    __int128 x1 = (-(__int128)B + rootD) / (2 * A);
-    __int128 x2 = (-(__int128)B - rootD) / (2 * A);
-    if (x1 > 0 && (A * x1 * x1 + B * x1 + C == 0)) return (ll)x1;
-    if (x2 > 0 && (A * x2 * x2 + B * x2 + C == 0)) return (ll)x2;
-
-    return -1; 
+    return false;
 }
+
 int main() {
     fast;
     tc {
-        ll n,k; cin>>n>>k;
+        ll n; cin>>n;
         vi a(n); in(a);
-        cout<<solve(a,n,k)/2<<endl;
+        if(solve(a,n)) Y;
+        else N;
     }
 }
