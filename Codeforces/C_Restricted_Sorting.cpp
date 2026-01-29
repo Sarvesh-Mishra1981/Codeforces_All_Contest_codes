@@ -47,23 +47,41 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+bool check(vi& a,vi& b,ll n,ll k){
+    ll min=b[0];
+    ll maxi=b[n-1];
+    if(maxi-min<k) return a==b;
+    fi(i,0,n){
+        if(a[i]==b[i]) continue;
+        bool x=(abs(a[i]-min)>=k || abs(a[i]-maxi)>=k);
+        bool y=(abs(b[i]-min)>=k || abs(b[i]-maxi)>=k);
+        if(!x ||!y) return false;
+    }
+    return true;
+}
+ll solve(vi& a, ll n){
+    vi b=a;
+    sort(b.begin(),b.end());
+    if(a==b) return -1;
+    ll low=1,high=MOD;
+    ll ans=1;
+    while(low<=high){
+        ll mid=low+(high-low)/2;
+        if(check(a,b,n,mid)){
+            ans=mid;
+            low=mid+1;
+        }else{
+            high=mid-1;
+        }
+    }
+    return ans;
+}
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
         vi a(n); in(a);
-        ll maxi=0;
-        ll idx=0;
-        fi(i,0,n){
-            if(a[i]==0){
-                idx++;
-                maxi=max(maxi,idx);
-            }else{
-                idx=0;
-            }
-        }
-        cout<<maxi<<endl;
+        cout<<solve(a,n)<<endl;
     }
 }

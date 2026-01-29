@@ -47,23 +47,28 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+void solve(ll n){
+    vi a;
+    ll left = 1;
+    ll right = n;
+    for(ll i=0;i<n;i++) {
+        if(i%2==0) {
+            a.pb(left);
+            left++;
+        } else {
+            a.pb(right);
+            right--;
+        }
+    }
+    reverse(all(a));   
+    out(a);
+    nl;
+}
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi a(n); in(a);
-        ll maxi=0;
-        ll idx=0;
-        fi(i,0,n){
-            if(a[i]==0){
-                idx++;
-                maxi=max(maxi,idx);
-            }else{
-                idx=0;
-            }
-        }
-        cout<<maxi<<endl;
+       solve(n);
     }
 }
