@@ -47,26 +47,41 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(ll n,vi& a){
-    map<ll,ll> mp;
-    ll left=0;
-    ll ans=0;
-    fi(i,0,n){
-        mp[a[i]]++;
-        while(mp[a[i]]>1){
-            mp[a[left]]--;
-            left++;
+void solve(vector<vector<ll>>& a,ll n){
+    vi first(n,0);
+    vi sec(n,0);
+    sort(a.begin(),a.end(),[&](vector<ll>& c,vector<ll>& d){
+        if(c[0]==d[0]) return c[1]>d[1];
+        return c[0]<d[0];
+    });
+    ll mini=LLONG_MAX;
+    ll maxi=LLONG_MIN;
+    for(ll i=n-1;i>=0;i--){
+        if(a[i][1]>=mini){
+            first[a[i][2]]=1;
         }
-
-        ans+=(i-left+1);
+        mini=min(mini,a[i][1]);
     }
-    return ans;
+    for(ll i=0;i<n;i++){
+        if(a[i][1]<=maxi){
+            sec[a[i][2]]=1;
+        }
+        maxi=max(maxi,a[i][1]);
+    }
+    out(first);
+    nl;
+    out(sec);
 }
 
 int main() {
     fast;
 
         ll n; cin>>n;
-        vi a(n); in(a);
-        cout<<solve(n,a)<<endl;
+       vector<vector<ll>> a;
+       fi(i,0,n){
+        ll x,y;
+        cin>>x>>y;
+        a.push_back({x,y,i});
+       }
+       solve(a,n);
 }
