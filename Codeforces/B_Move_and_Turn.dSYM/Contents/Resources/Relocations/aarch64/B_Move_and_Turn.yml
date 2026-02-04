@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/sarvesh/Documents/Codeforces/Codeforces/B_Move_and_Turn'
+relocations:     []
+...
