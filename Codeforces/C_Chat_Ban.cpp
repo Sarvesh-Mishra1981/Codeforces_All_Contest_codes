@@ -47,58 +47,34 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-string solve(vector<string>& a, ll n) {
-    vector<pair<ll,ll>> curr;
-    curr.push_back({0,0});
+ll sum(ll x){
+    return 1LL*x*(x+1)/2;
+}
 
-    string ans;
-    ans.push_back(a[0][0]);
-
-    while (true) {
-        char mn = '{'; 
-        for (auto [i,j] : curr) {
-            if (i+1 < n) mn = min(mn, a[i+1][j]);
-            if (j+1 < n) mn = min(mn, a[i][j+1]);
+ll solve(ll k,ll x){
+    ll low=0,high=2*k-1,ans=high;
+    while(low<=high){
+        ll mid=(low+high)/2;
+        ll cnt=0;
+        if(mid>=k){
+            cnt=sum(k)+sum(k-1)-sum(2*k-1-mid);
+        }else{
+            cnt=sum(mid);
         }
-
-        if (mn == '{') break;
-
-        vector<pair<ll,ll>> nxt;
-        set<pair<ll,ll>> seen;
-
-        for (auto [i,j] : curr) {
-            if (i+1 < n && a[i+1][j] == mn && !seen.count({i+1,j})) {
-                nxt.push_back({i+1, j});
-                seen.insert({i+1, j});
-            }
-            if (j+1 < n && a[i][j+1] == mn && !seen.count({i,j+1})) {
-                nxt.push_back({i, j+1});
-                seen.insert({i, j+1});
-            }
+        if(cnt>=x){
+            ans=mid;
+            high=mid-1;
         }
-
-        ans.push_back(mn);
-        curr.swap(nxt);
+        else{low=mid+1;}
     }
     return ans;
 }
 
 int main() {
     fast;
-        ll n; cin>>n;
-        vector<string> a;
-    fi(i,0,n){
-        string s;
-        fi(i,0,n){
-            char x;
-            cin>>x;
-            s.push_back(x);
-        }
-        a.push_back(s);
+    tc {
+        ll k,x; cin>>k>>x;
+       cout<<solve(k,x);
+       nl;
     }
-    string res=solve(a,n);
-    for(auto x:res){
-        cout<<x;
-    }
-    nl;
 }

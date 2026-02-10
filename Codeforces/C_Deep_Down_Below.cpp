@@ -47,58 +47,12 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-string solve(vector<string>& a, ll n) {
-    vector<pair<ll,ll>> curr;
-    curr.push_back({0,0});
-
-    string ans;
-    ans.push_back(a[0][0]);
-
-    while (true) {
-        char mn = '{'; 
-        for (auto [i,j] : curr) {
-            if (i+1 < n) mn = min(mn, a[i+1][j]);
-            if (j+1 < n) mn = min(mn, a[i][j+1]);
-        }
-
-        if (mn == '{') break;
-
-        vector<pair<ll,ll>> nxt;
-        set<pair<ll,ll>> seen;
-
-        for (auto [i,j] : curr) {
-            if (i+1 < n && a[i+1][j] == mn && !seen.count({i+1,j})) {
-                nxt.push_back({i+1, j});
-                seen.insert({i+1, j});
-            }
-            if (j+1 < n && a[i][j+1] == mn && !seen.count({i,j+1})) {
-                nxt.push_back({i, j+1});
-                seen.insert({i, j+1});
-            }
-        }
-
-        ans.push_back(mn);
-        curr.swap(nxt);
-    }
-    return ans;
-}
+ll solve()
 
 int main() {
     fast;
+    tc {
         ll n; cin>>n;
-        vector<string> a;
-    fi(i,0,n){
-        string s;
-        fi(i,0,n){
-            char x;
-            cin>>x;
-            s.push_back(x);
-        }
-        a.push_back(s);
+        vi a(n); in(a);
     }
-    string res=solve(a,n);
-    for(auto x:res){
-        cout<<x;
-    }
-    nl;
 }

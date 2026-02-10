@@ -47,58 +47,36 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-string solve(vector<string>& a, ll n) {
-    vector<pair<ll,ll>> curr;
-    curr.push_back({0,0});
-
-    string ans;
-    ans.push_back(a[0][0]);
-
-    while (true) {
-        char mn = '{'; 
-        for (auto [i,j] : curr) {
-            if (i+1 < n) mn = min(mn, a[i+1][j]);
-            if (j+1 < n) mn = min(mn, a[i][j+1]);
-        }
-
-        if (mn == '{') break;
-
-        vector<pair<ll,ll>> nxt;
-        set<pair<ll,ll>> seen;
-
-        for (auto [i,j] : curr) {
-            if (i+1 < n && a[i+1][j] == mn && !seen.count({i+1,j})) {
-                nxt.push_back({i+1, j});
-                seen.insert({i+1, j});
-            }
-            if (j+1 < n && a[i][j+1] == mn && !seen.count({i,j+1})) {
-                nxt.push_back({i, j+1});
-                seen.insert({i, j+1});
-            }
-        }
-
-        ans.push_back(mn);
-        curr.swap(nxt);
+ll ans=0;
+ll solve(vector<vector<ll>>& a,ll node,string& s){
+    if(a[node].size()==0){
+        return (s[node-1]=='W'?1:-1);
     }
-    return ans;
+    ll cnt=0;
+    for(auto x:a[node]){
+        cnt+=solve(a,x,s);
+    }
+    cnt+=(s[node-1]=='W'?1:-1);
+    if(cnt==0){
+        ans++;
+    }
+    return cnt;
 }
 
 int main() {
     fast;
+    tc {
         ll n; cin>>n;
-        vector<string> a;
-    fi(i,0,n){
         string s;
-        fi(i,0,n){
-            char x;
-            cin>>x;
-            s.push_back(x);
+        vector<vector<ll>> adj(n+1,vector<ll>());
+        fi(i,0,n-1){
+            ll temp;
+            cin>>temp;
+            adj[temp].push_back(i+2);
         }
-        a.push_back(s);
+        cin>>s;
+        ans=0;
+        solve(adj,1,s);
+        cout<<ans<<endl;
     }
-    string res=solve(a,n);
-    for(auto x:res){
-        cout<<x;
-    }
-    nl;
 }
