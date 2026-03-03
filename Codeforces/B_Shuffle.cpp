@@ -52,26 +52,16 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
-        vector<pair<ll,ll>> a;
-        fi(i,0,n){
-            ll x;
-            cin>>x;
-            vi v;
-            fi(j,0,x){
-                ll y; cin>>y;
-                v.push_back(y-j+1);
+        ll n,x,m; cin>>n>>x>>m;
+        ll p1=x,p2=x;
+        fi(i,0,m){
+            ll l,r;
+            cin>>l>>r;
+            if(l<=p2 && r>=p1){
+                p1=min(p1,l);
+                p2=max(p2,r);
             }
-            sort(v.begin(),v.end());
-            a.push_back({v[x-1],x});
         }
-        sort(a.begin(),a.end());
-        ll ans=a[0].first;
-        ll inc=a[0].second;
-        fi(i,1,n){
-            ans=max(ans,a[i].first-inc);
-            inc+=a[i].second;
-        }
-        cout<<ans<<endl;
+        cout<<(p2-p1+1)<<endl;
     }
 }
