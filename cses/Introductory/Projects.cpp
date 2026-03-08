@@ -47,23 +47,40 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(vi& a,ll n){
-    vi top;
-    fi(i,0,n){
-        auto it=lower_bound(top.begin(),top.end(),a[i]);
-        if(it==top.end()){
-            top.push_back(a[i]);
-        }else{
-            *it=a[i];
-        }
+ll solve(vector<vector<ll>>& a,ll n){
+
+    sort(a.begin(),a.end(),[](const vector<ll>& x,const vector<ll>& y){
+        return x[1] < y[1];
+    });
+
+    vector<ll> dp(n+1,0);
+
+    vector<ll> ends;
+    for(auto &x:a){
+        ends.push_back(x[1]);
     }
-    return top.size();
+
+    for(ll i=1;i<=n;i++){
+
+        ll st = a[i-1][0];
+        ll re = a[i-1][2];
+
+        ll it = lower_bound(ends.begin(),ends.end(),st) - ends.begin();
+
+        dp[i] = max(dp[i-1], re + dp[it]);
+    }
+
+    return dp[n];
 }
 
 int main() {
     fast;
-
         ll n; cin>>n;
-        vi a(n); in(a);
+        vector<vector<ll>> a(n,vector<ll>(3,0));
+        fi(i,0,n){
+            ll x,y,z;
+            cin>>x>>y>>z;
+            a[i]={x,y,z};
+        }
         cout<<solve(a,n)<<endl;
 }
