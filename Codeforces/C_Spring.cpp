@@ -48,12 +48,49 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
+ll gcd(ll a,ll b){
+    if(b==0){
+        return a;
+    }
+    return gcd(b,a%b);
+}
 
+ll lcm(ll a,ll b){
+    ll x=gcd(a,b);
+    return (a/x)*b;
+}
+void solve(ll a,ll b,ll c,ll m){
+ ll lcm_ab = lcm(a, b);
+ ll lcm_bc = lcm(b, c);
+ ll lcm_ac = lcm(a, c);
+ ll lcm_abc = lcm(a, lcm(b, c));
+
+    ll A=m/a;
+    ll B=m/b;
+    ll C=m/c;
+
+    ll AB=m/lcm_ab;
+    ll BC=m/lcm_bc;
+    ll AC=m/lcm_ac;
+    ll ABC=m/lcm_abc;
+ll only_a=A-AB-AC+ABC;
+ll only_b=B-AB-BC+ABC;
+ll only_c=C-BC-AC+ABC;
+ll AB_only=AB-ABC;
+ll BC_only=BC-ABC;
+ll AC_only=AC-ABC;
+ll fa=6*only_a+3*AB_only+3*AC_only+2*ABC;
+ll fb=6*only_b+3*AB_only+3*BC_only+2*ABC;
+ll fc=6*only_c+3*AC_only+3*BC_only+2*ABC;
+
+cout<<fa<<" "<<fb<<" "<<fc<<endl;
+
+}
 
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
-        vi a(n); in(a);
+        ll a,b,c,m; cin>>a>>b>>c>>m;
+        solve(a,b,c,m);
     }
 }

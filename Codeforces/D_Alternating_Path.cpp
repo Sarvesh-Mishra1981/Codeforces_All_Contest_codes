@@ -50,10 +50,43 @@ const int Na = 2e5+5;
 // -----------------------------------Lets Do IT---------------------------------------------------------------
 
 
+
+ll dfs(vvi& adj,vi& vis,ll c,ll u,ll& cnt0,ll& cnt1){
+    vis[u]=c;
+    if(c) cnt0++;
+    else cnt1++;
+    bool flag=true;
+    for(auto x:adj[u]){
+        if(vis[x]==-1){
+            if(!dfs(adj,vis,!c,x,cnt0,cnt1)) flag=false;
+            
+        }else if(vis[u]==vis[x]) flag=false;
+    }
+    return flag;
+}
+
 int main() {
     fast;
     tc {
-        ll n; cin>>n;
-        vi a(n); in(a);
+        ll n,m; cin>>n>>m;
+       vvi a(n);
+       vvi adj(n);
+       for(ll i=0;i<m;i++){
+        ll x,y;
+        cin>>x>>y;
+        x--,y--;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+       }
+       vi vis(n,-1);
+       ll ans=0;
+       fi(i,0,n){
+        if(vis[i]!=-1){
+            continue;
+        }
+        ll cnt0=0,cnt1=0;
+            if(dfs(adj,vis,0,i,cnt0,cnt1)) ans+=max(cnt1,cnt0);
+       }
+       cout<<ans<<endl;
     }
 }

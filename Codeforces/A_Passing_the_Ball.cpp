@@ -54,6 +54,15 @@ int main() {
     fast;
     tc {
         ll n; cin>>n;
-        vi a(n); in(a);
+        string s;
+        cin>>s;
+        ll ans=0;
+        fi(i,0,n){
+            if(s[i]=='L'){
+                ans=i;
+                break;
+            }
+        }
+        cout<<ans+1<<endl;
     }
 }

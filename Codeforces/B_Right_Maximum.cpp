@@ -48,12 +48,22 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
+ll solve(vi& a,ll n){
+    stack<ll> st;
+    for(ll i=n-1;i>=0;i--){
+        while(!st.empty() && st.top()<a[i]){
+            st.pop();
+        }
+        st.push(a[i]);
+    }
+    return st.size();
+}
 
 int main() {
     fast;
     tc {
         ll n; cin>>n;
         vi a(n); in(a);
+        cout<<solve(a,n)<<endl;
     }
 }
