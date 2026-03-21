@@ -22,20 +22,25 @@ void solve(ll r,ll g,ll b){
     string s;
     s.reserve(r+g+b);
     while(1){
-        vpi v={{r,'R'},{g,'G'},{b,'B'}};
-        sort(rall(v));
+        ll z=sz(s); 
+        vector<pair<ll,char>> v={{r,'R'},{g,'G'},{b,'B'}};
+        sort(all(v),[&](pair<ll,char>&a,pair<ll,char>&b){
+            if(a.ff!=b.ff)return a.ff>b.ff;
+            bool p1=(z>=2&&s[z-2]==a.ss);
+            bool p2=(z>=2&&s[z-2]==b.ss);
+            return p1>p2;
+        });
         bool ok=0;
         for(auto p:v){
-            if(p.ff==0)continue;
-         ll z=sz(s);
+        if(p.ff==0)continue;
             if(z>=1&&s[z-1]==p.ss)continue;
-    if(z>=3&&s[z-3]==p.ss)continue;
+     if(z>=3&&s[z-3]==p.ss)continue;
             s+=p.ss;
-        if(p.ss=='R') r--;
-        if(p.ss=='G') g--;
-        if(p.ss=='B') b--;
-        ok=1;
-        break;
+            if(p.ss=='R')r--;
+         if(p.ss=='G')g--;
+            if(p.ss=='B')b--;
+            ok=1;
+            break;
         }
         if(!ok)break;
     }
@@ -45,7 +50,7 @@ void solve(ll r,ll g,ll b){
 int main(){
     fast;
     tc{
-         ll r,g,b;cin>>r>>g>>b;
+          ll r,g,b;cin>>r>>g>>b;
         solve(r,g,b);
     }
     return 0;
