@@ -48,28 +48,30 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-bool solve(vector<ll>& a,ll n,ll x,ll t){
-    ll sum=0;
+ll solve(ll k,ll n,vi& a){
+    map<ll,ll> mp;
+    ll cnt=0;
     fi(i,0,n){
-        sum+=a[i];
+        if(a[i]%k)
+     {   mp[k-(a[i]%k)]++; cnt++;}
     }
-    if((x+sum)%2==(t%2)){
-        return true;
-    }else{
-        return false;
+    if(cnt==0) return 0;
+    ll rem=0,fre=0;
+    for(auto x:mp){
+        if(x.second>=fre){
+            fre=x.second;
+            rem=x.first;
+        }
     }
+    ll ans=(fre-1)*k+rem+1;
+    return ans;
 }
 
 int main() {
     fast;
     tc {
-        ll n,x,t; cin>>n>>x>>t;
+        ll n,k; cin>>n>>k;
         vi a(n); in(a);
-        if(solve(a,n,x,t)){
-            cout<<"Alice";
-        }else{
-            cout<<"Bob";
-        }
-        nl;
+        cout<<solve(k,n,a)<<endl;
     }
 }
