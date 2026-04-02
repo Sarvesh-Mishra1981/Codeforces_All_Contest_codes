@@ -19,6 +19,7 @@ using namespace std;
 #define ll  long long
 #define ld  long double
 #define vi  vector<ll>
+#define vvi vector<vector<ll>>
 #define pi  pair<ll,ll>
 #define vpi vector<pi>
 #define pb  push_back
@@ -33,8 +34,8 @@ using namespace std;
 #define in(v) for(auto &x:v) cin>>x
 #define out(v) for(auto &x:v) cout<<x<<" "
 #define inp(v) for(auto &x:v) cin>>x.ff>>x.ss
-#define Y cout<<"YES\n"
-#define N cout<<"NO\n"
+#define Y cout<<"Yes\n"
+#define N cout<<"No\n"
 #define nl cout<<'\n'
 #define mn3(a,b,c) min(a,min(b,c))
 #define mx3(a,b,c) max(a,max(b,c))
@@ -47,43 +48,27 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-
-bool solve(vector<int>& a, int n) {
-    unordered_map<int,int> m;
-    for (int i = 0; i < n; i++) {
-        m[a[i]]++;
+bool solve(ll n,vi& a){
+    map<ll,ll> mp;
+    fi(i,0,n){
+        mp[a[i]]++;
     }
-
-    if (m.size() > 2) return false;
-
-    // Case 1: Only one distinct element
-    if (m.size() == 1) return true;
-
-    // Case 2: Two distinct elements
-    auto it = m.begin();
-    int cnt1 = it->second; it++;
-    int cnt2 = it->second;
-
-    // Check if counts are equal or differ by 1
-    if (abs(cnt1 - cnt2) <= 1) return true;
-
-    return false;
+    if(mp.size()>2) return false;
+    if(n==1 || mp.size()==1) return true;
+    ll c=0,d=0;
+    auto it=mp.begin();
+    c=it->second;
+    it++;
+    d=it->second;
+    return (abs(c-d)<=1);
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
-    int t;
-    cin >> t;
-    while (t--) {
-        int n;
-        cin >> n;
-        vector<int> v(n);
-        for (int i = 0; i < n; i++) cin >> v[i];
-
-        if (solve(v, n)) cout << "Yes\n";
-        else cout << "No\n";
+    fast;
+    tc {
+        ll n; cin>>n;
+        vi a(n); in(a);
+        if(solve(n,a)) Y;
+        else N;
     }
-    return 0;
 }

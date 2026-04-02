@@ -53,12 +53,11 @@ const int Na = 2e5+5;
 int main() {
     fast;
     tc {
-        ll n,k; cin>>n>>k;
-        vi a(n); in(a);
-        vi b=a;
-        sort(b.begin(),b.end());
-        if(a==b) {Y; continue;}
-        if(k<=1) {N; continue;}
-        else {Y; }
+       string s;
+       cin>>s;
+       ll n=s.length();
+       if(n>10){
+        cout<<s[0]<<n-2<<s[n-1]<<endl;
+       }else cout<<s<<endl;
     }
 }
