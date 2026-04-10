@@ -48,28 +48,24 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll gcd(ll a,ll b){
-    if(a==0 && b==0) return 1;
-    if(b==0) return a;
-    return gcd(b,a%b);
-}
-ll solve(ll a,ll b,ll k){
-         ll g=gcd(a,b);
-         ll x=a/g;
-         ll y=b/g;
-     if(k>=a && k>=b) return 1;
-     else{
-        if(g==1) return 2;
-        else{
-            if(x<=k && y<=k) return 1;
-            else return 2;
-        }}
+ll solve(vi&a ,ll n){
+    ll st=0,end=n-1;
+    ll val=accumulate(a.begin(),a.end(),0LL),x=val/2;
+    ll z=val-x;
+    sort(rall(a));
+    for(auto& f:a){
+        if(x<=0) break;
+        x-=f;
+        z++;
+    }
+   return z;
 }
 
 int main() {
     fast;
     tc {
-        ll a,b,k; cin>>a>>b>>k;
-        cout<<solve(a,b,k)<<endl;
+        ll n; cin>>n;
+        vi a(n); in(a);
+        cout<<solve(a,n)<<endl;
     }
 }
