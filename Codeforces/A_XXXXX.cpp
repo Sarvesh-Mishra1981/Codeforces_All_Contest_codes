@@ -48,17 +48,36 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(ll a,ll b,ll k){
-    ll st_req=k+(k*b)-1;
-    ll step1=(st_req+a-2)/(a-1);
-    return step1+k;
+ll solve(vi& a,ll n,ll x){
+    ll lh=-1,rh=-1;
+    fi(i,0,n){
+        if(a[i]%x!=0){
+            if(lh==-1){
+                lh=i+1;
+            }
+            rh=n-i;
+        }
+    }
+    ll sum=accumulate(all(a),0LL);
+    if(sum%x!=0) return n;
+    else{
+        if(lh==-1 && rh==-1){
+            return -1;
+        }else{
+            if(lh!=-1 && rh!=-1){
+                return (n-min(lh,rh));
+            }else if(lh==-1){
+                return n-rh;
+            }else n-lh;
+        }
+    }
 }
 
 int main() {
     fast;
     tc {
-        ll a,b,k; cin>>a>>b>>k;
-        cout<<solve(a,b,k);
-        nl;
+        ll n,x; cin>>n>>x;
+        vi a(n); in(a);
+        cout<<solve(a,n,x)<<endl;
     }
 }
