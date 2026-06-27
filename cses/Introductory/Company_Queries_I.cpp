@@ -45,45 +45,60 @@ using namespace std;
 #define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 const ll MOD = 1e9+7;
 const ll INF = LLONG_MAX;
-const ll Na = 2e5+5;
-const ll val=20;
+const int Na = 2e5+5;
+
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll up[Na][val];
-
+vvi adj;
+vvi up;
+vi dpeth;
+const ll LOG=20;
+void solve(ll u,ll p){
+    up[u][0]=p;
+    for(ll j=1;j<LOG;j++){
+        up[u][j]=up[up[u][j-1]][j-1];
+    }
+    for(auto x:adj[u]){
+        if(x==p) continue;
+        depth[x]=depth[u]+1;
+        solve(x,u);
+    }
+}
+ll lca(ll u,ll v){
+    if(depth[u]<depth[v]){
+        swap(u,v);
+    }
+    ll d=depth[u]-depth[v];
+    for(ll j=LOG;j>=0;j--){
+        if(d&(1<<j)){
+            u=up[u][j];
+        }
+    }
+    if(u==v){
+        return u;
+    }
+    for(ll j=LOG;j>=0;j--){
+        if(up[u][j]!=up[v][j]){
+            u=up[u][j];
+            v=up[v][j];
+        }
+    }
+    return up[u][0];
+}
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-
-    ll n,q;
-    cin>>n>>q;
-
-    for(ll i=2;i<=n;i++){
-        cin>>up[i][0];
-    }
-
-    // binary lifting table
-    for(int j=1;j<val;j++){
-        for(int i=1;i<=n;i++){
-            if(up[i][j-1]!=0){
-                up[i][j]=up[ up[i][j-1] ][j-1];
-            } else {
-                up[i][j]=0;
-            }
+    fast;
+        ll n,k; cin>>n>>k;
+        adj.assign(n+1,{});
+        up.assign(n+1,vector<ll>(LOG,0));
+        for(ll i=2;i<=n;i++){
+            ll x;
+            cin>>x;
+            adj[x].push_back(i);
+            adj[i].push_back(x);
         }
-    }
-
-    while(q--){
-        ll x,y;
-        cin>>x>>y;
-
-        for(int i=0;i<val;i++){
-            if(y & (1<<i)){
-                x = up[x][i];
-                if(x==0) break;
-            }
+        solve(1,0);
+        while(k--){
+            ll a,b;
+            cin>>a>>b;
+          cout<<lca(a,b)<<endl;
         }
-
-        if(x==0) cout<<-1<<"\n";
-        else cout<<x<<"\n";
-    }
 }

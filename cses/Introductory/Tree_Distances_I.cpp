@@ -49,46 +49,44 @@ const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
 vvi adj;
-pair<ll,ll> solve(int n,int start,vi& dist){
-    dist.assign(n+1,-1);
-    dist[start]=0;
-    queue<ll> q;
-    q.push(start);
-    ll fartest=start;
-    while(!q.empty()){
-        ll top=q.front();
-        q.pop();
-        for(auto x:adj[top]){
-            if(dist[x]==-1){
-                dist[x]=dist[top]+1;
-                q.push(x);
-
-                if(dist[x]>dist[fartest]){
-                    fartest=x;
-                }
-            }
-        }
+int maxdis=-1,far=-1;
+void solve(int u,int p,int dis,vi& dist){
+    if(maxdis<dis){
+        maxdis=dis;
+        far=u;
     }
-    return {fartest,dist[fartest]};
+    for(auto x:adj[u]){
+        if(x==p) continue;
+        dist[x]=dist[u]+1;
+        solve(x,u,dis+1,dist);
+    }
 }
-
-
 int main() {
     fast;
+
         ll n; cin>>n;
-        adj.resize(n+1);
-        fi(i,0,n-1){
-            ll x,y;
-            cin>>x>>y;
-            adj[x].push_back(y);
-            adj[y].push_back(x);
-        }
-        vi dist,distu,distv;
-       int u=solve(n,1,dist).first;
-       int v=solve(n,u,distu).first;
-       solve(n,v,distv);
-        fi(i,1,n+1){
-            cout<<max(distu[i],distv[i])<<" ";
-        }
-        nl;
+       adj.assign(n+1,{});
+       fi(i,0,n-1){
+        int x,y;
+        cin>>x>>y;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+       }
+       vi dist(n+1),dista(n+1),distb(n+1);
+       dist[0]=0;
+       dista[0]=0;
+       distb[0]=0;
+       solve(1,0,0,dist);
+       ll a=far;
+       maxdis=-1;
+       solve(a,0,0,dista);
+       ll b=far;
+       maxdis=-1;
+       solve(b,0,0,distb);
+
+      for(int i=1;i<=n;i++){
+        cout<<max(dista[i],distb[i])<<" ";
+      }
+      cout<<endl;
+
 }

@@ -48,45 +48,27 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-vvi adj;
-int maxdis=-1,far=-1;
-void solve(int u,int p,int dis,vi& dist){
-    if(maxdis<dis){
-        maxdis=dis;
-        far=u;
-    }
-    for(auto x:adj[u]){
-        if(x==p) continue;
-        dist[x]=dist[u]+1;
-        solve(x,u,dis+1,dist);
-    }
-}
+
+
 int main() {
     fast;
-
         ll n; cin>>n;
-       adj.assign(n+1,{});
-       fi(i,0,n-1){
-        int x,y;
-        cin>>x>>y;
-        adj[x].push_back(y);
-        adj[y].push_back(x);
+        vector<pair<ll,ll>> a;
+        fi(i,0,n){
+            ll x,y;
+            cin>>x>>y;
+            a.push_back({x,y});
+        }
+        sort(a.begin(),a.end(),[&](pair<ll,ll>& a,pair<ll,ll>& b){
+        return a.second<b.second;
+    });
+        ll back=a[0].second;
+        ll ans=1;
+       for(ll i=1;i<n;i++){
+        if(a[i].first>=back){
+            ans++;
+            back=a[i].second;
+        }
        }
-       vi dist(n+1),dista(n+1),distb(n+1);
-       dist[0]=0;
-       dista[0]=0;
-       distb[0]=0;
-       solve(1,0,0,dist);
-       ll a=far;
-       maxdis=-1;
-       solve(a,0,0,dista);
-       ll b=far;
-       maxdis=-1;
-       solve(b,0,0,distb);
-
-      for(int i=1;i<=n;i++){
-        cout<<max(dista[i],distb[i])<<" ";
-      }
-      cout<<endl;
-
+       cout<<ans<<endl;
 }

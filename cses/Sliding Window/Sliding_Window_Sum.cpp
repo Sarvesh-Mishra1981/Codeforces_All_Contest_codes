@@ -48,31 +48,27 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-vvi adj;
-vi dis;
-void dfs(ll r,ll p){
-    dis[r]=1;
-    for(auto x:adj[r]){
-        if(x==p) continue;
-        dfs(x,r);
-        dis[r]+=dis[x];
-    }
-}
+
+
 int main() {
     fast;
-        ll n; cin>>n;
-        adj.assign(n+1,{});
-                dis.assign(n+1,0);
-        fi(i,2,n+1){
-            ll x;
-            cin>>x;
-            adj[x].push_back(i);
-            adj[i].push_back(x);
+        ll n,k; cin>>n>>k;
+        ll x,v,b,c;
+        cin>>x>>v>>b>>c;
+        vi a(n);
+        a[0]=x;
+        for(ll i=1;i<n;i++){
+            a[i] = (((((__int128)a[i-1] * v) + b) % c) + c) % c;
         }
-
-        dfs(1,0);
-        for(int i=1;i<=n;i++){
-    cout<<dis[i]-1<<" ";
-}
-cout<<"\n";
+        ll sum=0,ans=0;
+        for(ll i=0;i<k;i++){
+            sum+=a[i];
+        }
+        ans^=sum;
+        for(ll i=k;i<n;i++){
+            sum-=a[i-k];
+            sum+=a[i];
+            ans^=sum;
+        }
+        cout<<ans<<endl;
 }

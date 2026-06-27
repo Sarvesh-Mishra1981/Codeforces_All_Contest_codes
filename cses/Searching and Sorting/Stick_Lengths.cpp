@@ -48,33 +48,12 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-vvi adj;
-int maxdis=-1,far=-1;
-void solve(int u,int p,int dis){
-    if(maxdis<dis){
-        maxdis=dis;
-        far=u;
-    }
-    for(auto x:adj[u]){
-        if(x==p) continue;
-        solve(x,u,dis+1);
-    }
-}
+
+
 int main() {
     fast;
-
         ll n; cin>>n;
-       adj.assign(n+1,{});
-       fi(i,0,n-1){
-        int x,y;
-        cin>>x>>y;
-        adj[x].push_back(y);
-        adj[y].push_back(x);
-       }
-       solve(1,0,0);
-       ll a=far;
-       maxdis=-1;
-       solve(a,0,0);
-       cout<<maxdis<<endl;
-
+        vi a(n); in(a);
+        sort(all(a));
+        ll l=a[0],r=a[n-1]
 }

@@ -19,6 +19,7 @@ using namespace std;
 #define ll  long long
 #define ld  long double
 #define vi  vector<ll>
+#define vvi vector<vector<ll>>
 #define pi  pair<ll,ll>
 #define vpi vector<pi>
 #define pb  push_back
@@ -47,27 +48,31 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(ll idx,vector<vector<ll>>& adj,ll n,vector<ll>& ans){
-    if(adj[idx].empty()){
-        return 0;
+vvi adj;
+vi dis;
+void dfs(ll r,ll p){
+    dis[r]=1;
+    for(auto x:adj[r]){
+        if(x==p) continue;
+        dfs(x,r);
+        dis[r]+=dis[x];
     }
-    for(auto& x:adj[idx]){
-        ans[idx]+=1+solve(x,adj,n,ans);
-    }
-    return ans[idx];
 }
-
 int main() {
     fast;
         ll n; cin>>n;
-        vi a(n-1); in(a);
-        vector<vector<ll>> adj(n+1);
-        fi(i,0,n-1){
-            adj[a[i]].push_back(i+2);
+        adj.assign(n+1,{});
+                dis.assign(n+1,0);
+        fi(i,2,n+1){
+            ll x;
+            cin>>x;
+            adj[x].push_back(i);
+            adj[i].push_back(x);
         }
-        vector<ll> ans(n+1,0);
-        solve(1, adj, n, ans);
-         for(ll i=1;i<=n;i++){
-        cout << ans[i] << " ";
-         }
+
+        dfs(1,0);
+        for(int i=1;i<=n;i++){
+    cout<<dis[i]-1<<" ";
+}
+cout<<"\n";
 }

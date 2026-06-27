@@ -19,6 +19,7 @@ using namespace std;
 #define ll  long long
 #define ld  long double
 #define vi  vector<ll>
+#define vvi vector<vector<ll>>
 #define pi  pair<ll,ll>
 #define vpi vector<pi>
 #define pb  push_back
@@ -47,38 +48,33 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-ll solve(vector<vector<ll>>& adj, ll n, vector<ll>& maxi, ll idx){
-
-    ll cur = 1;
-
-    for(auto &x : adj[idx]){
-        ll val = solve(adj, n, maxi, x);
-        maxi.push_back(val);  
-        cur += val;
+vvi adj;
+int maxdis=-1,far=-1;
+void solve(int u,int p,int dis){
+    if(maxdis<dis){
+        maxdis=dis;
+        far=u;
     }
-
-    return cur;
+    for(auto x:adj[u]){
+        if(x==p) continue;
+        solve(x,u,dis+1);
+    }
 }
-
 int main() {
     fast;
 
-    ll n; 
-    cin >> n;
-
-    vector<vector<ll>> adj(n+1);
-
-    for(ll i=0;i<n-1;i++){
-        ll x,y;
-        cin >> x >> y;
+        ll n; cin>>n;
+       adj.assign(n+1,{});
+       fi(i,0,n-1){
+        int x,y;
+        cin>>x>>y;
         adj[x].push_back(y);
-    }
+        adj[y].push_back(x);
+       }
+       solve(1,0,0);
+       ll a=far;
+       maxdis=-1;
+       solve(a,0,0);
+       cout<<maxdis<<endl;
 
-    vector<ll> maxi;
-
-    solve(adj,n,maxi,1);
-
-    sort(maxi.rbegin(),maxi.rend());
-
-    cout << (maxi[0] + maxi[1]) << endl;
 }
