@@ -1,0 +1,87 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <deque>
+#include <string>
+#include <algorithm>
+#include <numeric>
+#include <cmath>
+#include <climits>
+#include <iomanip>
+#include <utility>
+#include<unordered_set>
+#include<unistd.h>
+#include<unordered_map>
+using namespace std;
+#define ll  long long
+#define ld  long double
+#define vi  vector<ll>
+#define vvi vector<vector<ll>>
+#define pi  pair<ll,ll>
+#define vpi vector<pi>
+#define pb  push_back
+#define ff  first
+#define ss  second
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define sz(x) ((ll)(x).size())
+#define fi(i,s,e) for(ll i=s;i<e;i++)
+#define fd(i,s,e) for(ll i=s;i>e;i--)
+#define tc  ll t;cin>>t;while(t--)
+#define in(v) for(auto &x:v) cin>>x
+#define out(v) for(auto &x:v) cout<<x<<" "
+#define inp(v) for(auto &x:v) cin>>x.ff>>x.ss
+#define Y cout<<"YES\n"
+#define N cout<<"NO\n"
+#define nl cout<<'\n'
+#define mn3(a,b,c) min(a,min(b,c))
+#define mx3(a,b,c) max(a,max(b,c))
+#define hi(v) *max_element(all(v))
+#define lo(v) *min_element(all(v))
+#define dbg(x) cerr<<#x<<"="<<x<<'\n'
+#define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+const ll MOD = 1e9+7;
+const ll INF = LLONG_MAX;
+const int Na = 2e5+5;
+
+// -----------------------------------Lets Do IT---------------------------------------------------------------
+int main() {
+    fast;
+        ll n,k; cin>>n>>k;
+        ll x,v,b,c;
+        cin>>x>>v>>b>>c;
+        vi a(n);
+        a[0]=x;
+        for(ll i=1;i<n;i++){
+            a[i] = (((((__int128)a[i-1] * v) + b) % c) + c) % c;
+        }
+        // so here we will create the prefix and suffix arra for the eack k window and 
+        // for the ith window the ans will be pre[i] | suf[i-k+1];
+        vi pre(n),suf(n);
+        pre[0]=a[0];
+        suf[n-1]=a[n-1];
+        for(ll i=1;i<n;i++){
+            if(i%k==0){
+                pre[i]=a[i];
+            }else{
+                pre[i]=pre[i-1]| a[i];
+            }
+        }
+         for(ll i=n-2;i>=0;i--){
+            if(i%k==(k-1)){
+                suf[i]=a[i];
+            }else{
+                suf[i]=suf[i+1] | a[i];
+            }
+        }
+        ll ans=0;
+        for(ll i=k-1;i<n;i++){
+            ll curr=pre[i]| suf[i-k+1];
+            ans^=curr;
+        }
+        cout<<ans<<endl;
+
+}
