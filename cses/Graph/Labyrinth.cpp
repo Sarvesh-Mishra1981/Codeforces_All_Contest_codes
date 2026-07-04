@@ -22,6 +22,7 @@ using namespace std;
 #define vvi vector<vector<ll>>
 #define pi  pair<ll,ll>
 #define vpi vector<pi>
+#define vvpi vector<vector<pi>>
 #define pb  push_back
 #define ff  first
 #define ss  second
@@ -48,42 +49,86 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-string ans="";
-bool dfs(vector<string>& a,ll i,ll j,ll n,ll m,string curr){
-    if(i<0 || j<0 || i>=n || j>=m || a[i][j]=='#'){
-        return false;
-    }
-    if(a[i][j]=='B'){
-        ans=curr;
-        return true;
-    }
-    a[i][j]='#';
-    dfs(a,i+1,j,n,m,curr+'D');
-    dfs(a,i,j+1,n,m,curr+'R');
-    dfs(a,i-1,j,n,m,curr+'U');
-    dfs(a,i,j-1,n,m,curr+'L');
-}
+
+using pii = pair<int,int>;
 
 int main() {
-    fast;
-        ll n,m; cin>>n>>m;
-        vector<string> a;
-        for(ll i=0;i<n;i++){
-            string s;
-            cin>>s;
-            a.push_back(s);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin >> n >> m;
+
+    vector<string> grid(n);
+
+    pii st, en;
+
+    for(int i = 0; i < n; i++) {
+        cin >> grid[i];
+        for(int j = 0; j < m; j++) {
+            if(grid[i][j] == 'A') st = {i,j};
+            if(grid[i][j] == 'B') en = {i,j};
         }
-        string curr="";
-        for(ll i=0;i<n;i++){
-            for(ll j=0;j<m;j++){
-                if(a[i][j]=='A'){
-                    if(dfs(a,i,j,n,m,curr)){
-                        cout<<"Yes"<<endl<<ans.length()<<endl;
-                        cout<<ans<<endl;
-                    }else{
-                        cout<<"No"<<endl;
-                    }
-                }
-            }
+    }
+
+    vector<vector<bool>> vis(n, vector<bool>(m,false));
+    vector<vector<pii>> par(n, vector<pii>(m, {-1,-1}));
+    vector<vector<char>> move(n, vector<char>(m));
+
+    queue<pii> q;
+    q.push(st);
+    vis[st.first][st.second] = true;
+
+    int dx[] = {-1,1,0,0};
+    int dy[] = {0,0,-1,1};
+    char dir[] = {'U','D','L','R'};
+
+    while(!q.empty()) {
+
+        auto [x,y] = q.front();
+        q.pop();
+
+        for(int k=0;k<4;k++) {
+
+            int nx = x + dx[k];
+            int ny = y + dy[k];
+
+            if(nx<0 || ny<0 || nx>=n || ny>=m)
+                continue;
+
+            if(vis[nx][ny])
+                continue;
+
+            if(grid[nx][ny]=='#')
+                continue;
+
+            vis[nx][ny]=true;
+            par[nx][ny]={x,y};
+            move[nx][ny]=dir[k];
+
+            q.push({nx,ny});
         }
+    }
+
+    if(!vis[en.first][en.second]) {
+        cout<<"NO\n";
+        return 0;
+    }
+
+    cout<<"YES\n";
+
+    string ans;
+
+    pii cur=en;
+
+    while(cur!=st) {
+
+        ans.push_back(move[cur.first][cur.second]);
+        cur=par[cur.first][cur.second];
+    }
+
+    reverse(ans.begin(),ans.end());
+
+    cout<<ans.size()<<"\n";
+    cout<<ans<<"\n";
 }
