@@ -48,62 +48,42 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-// this is the krushkal algo
-struct Edge{
-    ll u,v,w;
-};
-vector<ll> par;
-vector<ll> sz;
-ll find(ll x){
-    if(par[x]==x){
-        return x;
-    }
-    return par[x]=find(par[x]);
-}
-bool unite(ll x,ll y){
-    x=find(x);
-    y=find(y);
-    if(x==y){
-        return false;
-    }
-    if(sz[x]<sz[y]){
-        swap(x,y);
-    }
-    par[y]=x;
-    sz[x]+=sz[y];
-    return true;
-}
+
+
 int main() {
     fast;
-    ll n,m;
-    cin>>n>>m;
-    vector<Edge> adj(m);
-    par.assign(n+1,0);
-    for(ll i=1;i<=n;i++){
-        par[i]=i;
-    }
-    sz.assign(n+1,0);
-    for(ll i=0;i<m;i++){
-    cin>>adj[i].u>>adj[i].v>>adj[i].w;
-    }
-    sort(adj.begin(),adj.end(),[&](Edge& a,Edge& b){
-        return a.w<b.w;
-    });
-    ll ans=0;
-    ll cnt=0;
-    for(ll i=0;i<m;i++){
-        if(unite(adj[i].u,adj[i].v)){
-            ans+=adj[i].w;
+        ll n,m; cin>>n>>m;
+        vector<vector<pair<ll,ll>>> adj(n+1);
+        for(ll i=0;i<m;i++){
+            ll x,y,z;
+            cin>>x>>y>>z;
+            adj[x].push_back({y,z});
+            adj[y].push_back({x,z});
+        }
+        priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> pq;
+        pq.push({0,1});
+        vector<bool> vis(n+1,false);
+        ll ans=0;
+        ll cnt=0;
+        while(!pq.empty()){
+            ll d=pq.top().first;
+            ll u=pq.top().second;
+            pq.pop();
+            if(vis[u]) continue;
+            ans+=d;
+            vis[u]=true;
             cnt++;
-            if(cnt==n-1){
-                break;
+            for(auto x:adj[u]){
+                if(!vis[x.first]){
+                    pq.push({x.second,x.first});
+                }
             }
         }
-    }
-    if(cnt==n-1){
-        cout<<ans<<endl;
-    }else{
-        cout<<"IMPOSSIBLE"<<endl;
-    }
+        if(cnt==n){
+            cout<<ans<<endl;
+        }else{
+            cout<<"IMPOSSIBLE"<<endl;
+        }
+        
 
 }

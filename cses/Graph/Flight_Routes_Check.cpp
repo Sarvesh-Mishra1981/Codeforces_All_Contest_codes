@@ -48,60 +48,43 @@ const ll INF = LLONG_MAX;
 const int Na = 2e5+5;
 
 // -----------------------------------Lets Do IT---------------------------------------------------------------
-vi par;
-vi sz;
-ll find(ll x){
-    if(par[x]==x){
-        return x;
+
+void dfs(vector<vector<ll>>& adj,ll src,ll p,vector<bool>& vis){
+    vis[src]=true;
+    for(auto x:adj[src]){
+       if(!vis[x])
+       { dfs(adj,x,src,vis);}
     }
-    return par[x]=find(par[x]);
 }
-bool unite(ll x,ll y){
-    x=find(x);
-    y=find(y);
-    if(x==y){
-        return false;
-    }
-    if(sz[x]<sz[y]){
-        swap(x,y);
-    }
-    par[y]=x;
-    sz[x]+=sz[y];
-    return true;
-}
+
 int main() {
     fast;
         ll n,m; cin>>n>>m;
-        vector<pair<ll,ll>> adj(m);
+        vvi adj1(n+1);
+        vvi adj2(n+1);
         for(ll i=0;i<m;i++){
-            cin>>adj[i].ff>>adj[i].ss;
+            ll x,y;
+            cin>>x>>y;
+            adj1[x].push_back(y);
+            adj2[y].push_back(x);
         }
-        ll cnt=0;
-        par.assign(n+1,0);
-sz.assign(n+1,1);
-for (ll i = 1; i <= n; i++) {
-    par[i] = i;
-}
-        for(ll i=0;i<m;i++){
-            if(unite(adj[i].ff,adj[i].ss)){
-                cnt++;
-            }
-        }
-        if(cnt==n-1){
-            cout<<"YES"<<endl;
-        }else{
-            cout<<"NO"<<endl;
-            vector<ll> rep;
-
-for (ll i = 1; i <= n; i++) {
-    if (find(i) == i)
-        rep.push_back(i);
+        vector<bool> vis1(n+1,false);
+        vector<bool> vis2(n+1,false);
+        dfs(adj1,1,0,vis1);
+        dfs(adj2,1,0,vis2);
+        for(ll i=1;i<=n;i++){
+            if(!vis1[i]){
+    cout<<"NO\n";
+    cout<<1<<" "<<i<<"\n";
+    return 0;
 }
 
-cout << rep.size() - 1 << "\n";
-
-for (ll i = 1; i < rep.size(); i++) {
-    cout << rep[i - 1] << " " << rep[i] << "\n";
+if(!vis2[i]){
+    cout<<"NO\n";
+    cout<<i<<" "<<1<<"\n";
+    return 0;
 }
         }
+        cout<<"YES"<<endl;
+
 }
